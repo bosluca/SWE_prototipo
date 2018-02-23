@@ -101,7 +101,7 @@ function createAudioElement(url, blob) {
 	data.append('file', blob);
 
 	$.ajax({
-		url :  location.href + 'recorder/save_audio',
+		url :  location.href + 'index.php/recorder/save_audio',
 		type: 'POST',
 		data: data,
 		contentType: false,
