@@ -99,9 +99,9 @@ function createAudioElement(url, blob) {
 	var success  = true;
 
 	data.append('file', blob);
-console.log(location);
+
 	$.ajax({
-		url :  location.origin + '/recorder/save_audio',
+		url :  location.href + '/recorder/save_audio',
 		type: 'POST',
 		data: data,
 		contentType: false,

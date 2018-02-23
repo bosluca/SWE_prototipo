@@ -20,7 +20,6 @@ class Recorder extends CI_Controller {
 
 	function save_audio()
 	{
-		die("OK");
 		if(isset($_FILES['file']) && !$_FILES['file']['error']){
 		    $fname = date('Y-m-d_H-i-s') . ".wav";
 
