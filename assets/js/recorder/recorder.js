@@ -14,6 +14,8 @@ var audioCtx  = new (window.AudioContext || webkitAudioContext)();
 if (navigator.mediaDevices.getUserMedia) {
 	var constraints = { audio: true };
 	var chunks      = [];
+	var blobs       = [];
+	var blobs_index = 0;
 
   	var onSuccess = function(stream) {
 		var mediaRecorder = new MediaRecorder(stream);
@@ -36,18 +38,14 @@ if (navigator.mediaDevices.getUserMedia) {
 
 		mediaRecorder.onstop = function(e) {
 			var clipLabel     = document.createElement('p');
-			var audio         = document.createElement('audio');
-			var deleteButton  = document.createElement('button');
-
-			audio.setAttribute('controls', '');
-
-			audio.controls = true;
 
 			var blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
 			chunks = [];
 			var audioURL = window.URL.createObjectURL(blob);
-			addAudioElement(audioURL);
-			audio.src = audioURL;
+			addAudioElement(audioURL, blob.size);
+
+			blobs.push(blob);
+			blobs_index++;
 		}
 
 		mediaRecorder.ondataavailable = function(e) {
@@ -74,24 +72,32 @@ function visualize(stream) {
 	source.connect(analyser);
 }
 
-function addAudioElement(blobUrl)
+function addAudioElement(blobUrl, size)
 {
-	var newAudio = '<div class="audio-element" data-blob="' + blobUrl + '"><button type="button" class="btn btn-sm btn-success">salva</button><button class="btn btn-sm btn-danger">scarta</button></div>';
+	// calculate KB or MB for file size
+	size /= 1024;
+
+	if(size > 1024) {
+		size /= 1024;
+		size = Math.round(size, 1);
+		size = '(' + size + ' MB) ';
+	}
+	else {
+		size = Math.round(size, 1);
+		size = '(' + size + ' KB) ';
+	}
+
+	var desc = new Date().toLocaleString() + ' ' + size;
+	var newAudio = '<div class="audio-element">' + desc + '<div class="controls"><button type="button" class="btn btn-sm btn-success save-element" data-blob="' + blobUrl + '" data-index="' + blobs_index + '"><i class="ion-ios-checkmark"></i> SALVA</button><button class="btn btn-sm btn-danger delete-element"><i class="ion-ios-close"></i> SCARTA</button></div></div>';
+
 	$('#downloadContainer').append(newAudio);
-	/*const downloadEl     = document.createElement('a');
-	downloadEl.href      = blobUrl;
-	// downloadEl.dataset.blob = blobUrl;
-	const sourceEl       = document.createElement('source');
-	sourceEl.src         = blobUrl;
-	sourceEl.type        = 'audio/FLAC';
-	document.getElementById('downloadContainer').appendChild(downloadEl);*/
 }
 
-function createAudioElement(blob) {
-	var url = (window.URL || window.webkitURL).createObjectURL(blob);
-
+function createAudioElement(url, blob) {
 	var filename = 'audio_file.wav';
-	var data = new FormData();
+	var data     = new FormData();
+	var success  = true;
+
 	data.append('file', blob);
 
 	$.ajax({
@@ -100,11 +106,25 @@ function createAudioElement(blob) {
 		data: data,
 		contentType: false,
 		processData: false,
-		success: function(data) {
-			console.log(data);
-		},
 		error: function() {
-			console.log('failed');
+			success = false;
 		}
 	});
+
+	return success;
 }
+
+$('body').on('click','.save-element',function(){
+	var _this = $(this);
+
+	if(createAudioElement(_this.data('blob'), blobs[_this.data('index')])){
+		_this.closest('.controls').html('<em>Salvato</em>');
+	}
+	else {
+		_this.closest('.controls').html('<em>Impossibile salvare il file registrato</em>');
+	}
+});
+
+$('body').on('click','.delete-element',function(){
+	$(this).closest('.audio-element').remove();
+});

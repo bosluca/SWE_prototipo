@@ -5,9 +5,6 @@ class Recorder extends CI_Controller {
 	function __construct()
     {
         parent::__construct();
-
-        // $this->load->model('');
-        // $this->lang->load('task');
     }
 
 	function index()
