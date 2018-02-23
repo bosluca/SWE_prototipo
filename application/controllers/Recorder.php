@@ -21,9 +21,14 @@ class Recorder extends CI_Controller {
 	function save_audio()
 	{
 		if(isset($_FILES['file']) && !$_FILES['file']['error']){
-		    $fname = date('Y-m-d_H-i-s') . ".flac";
+			$fname     = date('Y-m-d_H-i-s');
+			$path      = getcwd() . '/audio_files';
+			$path_file = $path . '/' . $fname . ".wav";
+			$out_path  = $path . '/' . $fname . ".FLAC";
 
 		    move_uploaded_file($_FILES['file']['tmp_name'], 'audio_files/' . $fname);
+
+		    exec('/usr/bin/ffmpeg -i ' . $path_file . ' -ac 1 ' . $out_path);
 		}
 	}
 }

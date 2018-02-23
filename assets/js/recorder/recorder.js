@@ -39,7 +39,7 @@ if (navigator.mediaDevices.getUserMedia) {
 		mediaRecorder.onstop = function(e) {
 			var clipLabel     = document.createElement('p');
 
-			var blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=flac' });
+			var blob = new Blob(chunks, { 'type' : 'audio/wav; codecs=wav' });
 			chunks = [];
 			var audioURL = window.URL.createObjectURL(blob);
 			addAudioElement(audioURL, blob.size);
