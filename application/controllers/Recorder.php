@@ -20,4 +20,13 @@ class Recorder extends CI_Controller {
 
 		$this->load->view('template', $data);
 	}
+
+	function save_audio()
+	{
+		if(isset($_FILES['file']) && !$_FILES['file']['error']){
+		    $fname = date('Y-m-d_H-i-s') . ".wav";
+
+		    move_uploaded_file($_FILES['file']['tmp_name'], 'audio_files/' . $fname);
+		}
+	}
 }

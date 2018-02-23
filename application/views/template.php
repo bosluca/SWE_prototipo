@@ -14,6 +14,7 @@
 	    <!-- Bootstrap -->
     	<link rel="stylesheet" href="<?php echo site_url('assets/css/bootstrap/bootstrap.min.css'); ?>" />
     	<link rel="stylesheet" href="<?php echo site_url('assets/css/ionicons/ionicons.min.css'); ?>" />
+    	<link rel="stylesheet" href="<?php echo site_url('assets/css/theme.css'); ?>" />
 	    <?php
 	        if(isset($theme_css))
 	        {
