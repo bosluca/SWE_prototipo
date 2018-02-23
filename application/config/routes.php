@@ -49,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'recorder';
-$route['404_override'] = '';
+$route['default_controller']   = 'recorder';
+$route['404_override']         = '';
 $route['translate_uri_dashes'] = FALSE;
-$route['debug']               = 'recorder/debug';
+$route['recorder/save_audio']  = 'index.php/recorder/save_audio';
