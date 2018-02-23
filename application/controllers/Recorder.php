@@ -18,6 +18,11 @@ class Recorder extends CI_Controller {
 		$this->load->view('template', $data);
 	}
 
+	function debug()
+	{
+		die("FUNZIONA");
+	}
+
 	function save_audio()
 	{
 		die("OK");
