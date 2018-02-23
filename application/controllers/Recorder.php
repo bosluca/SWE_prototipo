@@ -26,7 +26,7 @@ class Recorder extends CI_Controller {
 			$path_file = $path . '/' . $fname . ".wav";
 			$out_path  = $path . '/' . $fname . ".FLAC";
 
-		    move_uploaded_file($_FILES['file']['tmp_name'], 'audio_files/' . $fname);
+		    move_uploaded_file($_FILES['file']['tmp_name'], 'audio_files/' . $fname . '.wav');
 		    $command = '/usr/bin/ffmpeg -i ' . $path_file . ' -ac 1 ' . $out_path;
 		    echo $command;
 		    exec($command);
