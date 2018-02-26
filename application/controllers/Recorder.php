@@ -38,7 +38,8 @@ class Recorder extends CI_Controller {
 
 		    // upload file to google storage
 		    $command = 'gsutil cp ' . $flac_file . ' gs://ajarvis-recorder';
-		    echo shell_exec($command) or die("NO");
+		    $command = 'gsutil cp /var/www/secure/prototipo/audio_files/output.FLAC gs://ajarvis-recorder';
+		    echo shell_exec($command);
 		    echo $command;
 		}
 	}
