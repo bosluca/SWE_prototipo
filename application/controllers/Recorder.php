@@ -38,10 +38,7 @@ class Recorder extends CI_Controller {
 
 		    // upload file to google storage
 		    $command = 'gsutil cp ' . $flac_file . ' gs://ajarvis-recorder';
-
-		    echo $command;
-
-		    exec($command);
+		    exec($command); echo $command;
 		}
 	}
 }
