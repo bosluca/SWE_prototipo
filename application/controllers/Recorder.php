@@ -21,6 +21,7 @@ class Recorder extends CI_Controller {
 	function save_audio()
 	{
 		if(isset($_FILES['file']) && !$_FILES['file']['error']){
+			$this->load->helper('google_storage_helper');
 			$fname     = date('Y-m-d_H-i-s');
 			$path      = getcwd() . '/audio_files';
 			$wav_file  = $path . '/' . $fname . ".wav";
@@ -42,5 +43,12 @@ class Recorder extends CI_Controller {
 		    echo shell_exec($command);
 		    echo $command;
 		}
+	}
+
+	function debug()
+	{
+		$this->load->helper('google_storage_helper');
+
+		upload_file('ciao');
 	}
 }
