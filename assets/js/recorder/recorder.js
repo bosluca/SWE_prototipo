@@ -109,7 +109,9 @@ function createAudioElement(url, blob) {
 		error: function() {
 			success = false;
 		}
-	});
+	}).done(function(data) {
+		console.log(data);
+    });
 
 	return success;
 }

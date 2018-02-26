@@ -35,6 +35,13 @@ class Recorder extends CI_Controller {
 
 		    // delete old wav file
 		    unlink($wav_file);
+
+		    // upload file to google storage
+		    $command = 'gsutil cp ' . $flac_file . ' gs://ajarvis-recorder';
+
+		    echo $command;
+
+		    exec($command);
 		}
 	}
 }
