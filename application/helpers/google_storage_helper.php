@@ -15,7 +15,7 @@ function upload_file($file_path = false)
 		# Instantiates a client
 		$storage = new StorageClient([
 			'projectId'   => $projectId,
-			'keyFilePath' =>  FCPATH . '/keys/AJarvis-5bfebda57c5c.json'
+			'keyFilePath' =>  FCPATH . 'keys/AJarvis-5bfebda57c5c.json'
 		]);
 
 
@@ -35,10 +35,10 @@ function debug()
 	# Instantiates a client
 	$storage = new StorageClient([
 		'projectId'   => $projectId,
-		'keyFilePath' =>  FCPATH . '/keys/AJarvis-5bfebda57c5c.json'
+		'keyFilePath' =>  FCPATH . 'keys/AJarvis-5bfebda57c5c.json'
 	]);
 
-	echo FCPATH . '/keys/AJarvis-5bfebda57c5c.json';
+	echo FCPATH . 'keys/AJarvis-5bfebda57c5c.json';
 
 	$source  = getcwd() . '/audio_files/output.FLAC';
 	$storage = new StorageClient();
