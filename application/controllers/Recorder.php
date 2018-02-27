@@ -41,4 +41,11 @@ class Recorder extends CI_Controller {
 			upload_file($flac_file, $fname . '.FLAC');
 		}
 	}
+
+	function debug()
+	{
+		$this->load->helper('google_storage_helper');
+
+		debug();
+	}
 }
