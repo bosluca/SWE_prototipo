@@ -30,6 +30,7 @@ function debug()
 	# Your Google Cloud Platform project ID
 	$projectId  = $CI->config->item('project_id');
 	$bucketName = $CI->config->item('audio_bucket_name');
+	$objectName = 'output.FLAC';
 
 	# Instantiates a client
 	$storage = new StorageClient([
