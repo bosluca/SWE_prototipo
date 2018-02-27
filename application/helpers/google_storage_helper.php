@@ -50,7 +50,7 @@ function debug()
 		'keyFilePath' =>  FCPATH . 'keys/AJarvis-5bfebda57c5c.json'
 	]);
 
-	$source = getcwd() . '/audio_files/output.FLAC';
+	/*$source = getcwd() . '/audio_files/output.FLAC';
 	$file   = fopen($source, 'r');
 	$bucket = $storage->bucket($bucketName);
 
@@ -59,5 +59,22 @@ function debug()
 	}
 	else {
 		printf('Failed uploaded %s to gs://%s/%s' . PHP_EOL, basename($source), $bucketName, $objectName);
-	}
+	}*/
+
+	$app->post('/write', function (Request $request) use ($app) {
+	    $storage = $app['storage'];
+	    $content = $request->get('content');
+	    $metadata = ['contentType' => 'audio/x-flac'];
+	    $storage->bucket($bucketName)->upload($content, [
+	        'name' => $objectName,
+	        'metadata' => $metadata,
+	    ]);
+	});
+
+	$app['storage'] = function () use ($app) {
+	    $storage = new StorageClient([
+	        'projectId' => $projectId
+	    ]);
+	    return $storage;
+	};
 }
