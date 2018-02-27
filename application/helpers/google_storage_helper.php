@@ -64,8 +64,16 @@ function debug()
 	}*/
 
 	// create the Silex application
-$app = new Application();
+	$app = new Application();
 
+	$app['storage'] = function () use ($app) {
+	    $storage = new StorageClient([
+	        'projectId' => $projectId,
+	        'keyFilePath' =>  FCPATH . 'keys/AJarvis-5bfebda57c5c.json'
+	    ]);
+
+	    return $storage;
+	};
 
 	$app->post('/write', function (Request $request) use ($app) {
 	    $storage = $app['storage'];
@@ -76,11 +84,4 @@ $app = new Application();
 	        'metadata' => $metadata,
 	    ]);
 	});
-
-	$app['storage'] = function () use ($app) {
-	    $storage = new StorageClient([
-	        'projectId' => $projectId
-	    ]);
-	    return $storage;
-	};
 }
