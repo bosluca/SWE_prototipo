@@ -33,10 +33,8 @@ function debug()
 	$objectName = 'output.FLAC';
 
 	# Instantiates a client
-	$storage = new StorageClient([
-		'projectId'   => $projectId,
-		'keyFilePath' =>  FCPATH . 'keys/AJarvis-5bfebda57c5c.json'
-	]);
+	$storage = new StorageClient();
+
 
 	echo FCPATH . 'keys/AJarvis-5bfebda57c5c.json';
 
