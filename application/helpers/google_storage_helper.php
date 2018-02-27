@@ -64,12 +64,11 @@ function debug()
 	$source = getcwd() . '/audio_files/output.FLAC';
 	$file   = fopen($source, 'r');
 	$bucket = $storage->bucket($bucketName);
-	$object = $bucket->upload($file, [
-        'name' => $objectName
-    ]);
 
-    echo '<pre>';
-print_r($object);
-echo '</pre>';
-die();
+	if($bucket->upload($file, ['name' => $objectName])){
+		printf('Uploaded %s to gs://%s/%s' . PHP_EOL, basename($source), $bucketName, $objectName);
+	}
+	else {
+		printf('Failed uploaded %s to gs://%s/%s' . PHP_EOL, basename($source), $bucketName, $objectName);
+	}
 }
