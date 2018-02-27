@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 # Includes the autoloader for libraries installed with composer
-require __DIR__ . '/vendor/autoload.php';
+require '/vendor/autoload.php';
 
 # Imports the Google Cloud client library
 use Google\Cloud\Storage\StorageClient;
