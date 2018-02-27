@@ -38,7 +38,11 @@ function debug()
 		'keyFilePath' =>  FCPATH . '/keys/AJarvis-5bfebda57c5c.json'
 	]);
 
+	echo 'ok';
+
 	$source = getcwd() . '/audio_files/output.FLAC';
+
+	echo $source;
 
 	$storage = new StorageClient();
 	$file    = fopen($source, 'r');
