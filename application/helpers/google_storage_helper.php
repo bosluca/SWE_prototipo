@@ -26,8 +26,9 @@ function upload_file($file_path = false, $file_name = false)
 		// open file and instantiate bucket
 		$file   = fopen($file_path, 'r');
 		$bucket = $storage->bucket($bucketName);
+		$metadata = ['contentType' => 'audio/x-flac'];
 
-		if($bucket->upload($file, ['name' => $file_name])){
+		if($bucket->upload($file, ['name' => $file_name,'metadata' => $metadata])){
 			printf('Uploaded %s to gs://%s/%s' . PHP_EOL, basename($file_path), $bucketName, $file_name);
 		}
 		else {
@@ -77,7 +78,6 @@ function debug()
 
 	$app->post('/write', function (Request $request) use ($app) {
 	    $storage = $app['storage'];
-	    $content = $request->get('content');
 	    $metadata = ['contentType' => 'audio/x-flac'];
 	    $storage->bucket($bucketName)->upload($content, [
 	        'name' => $objectName,
