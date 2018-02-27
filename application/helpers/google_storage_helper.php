@@ -33,13 +33,14 @@ function debug()
 	$objectName = 'output.FLAC';
 
 	# Instantiates a client
-	$storage = new StorageClient();
-
+	$storage = new StorageClient([
+		'projectId'   => $projectId,
+		'keyFilePath' =>  FCPATH . 'keys/AJarvis-5bfebda57c5c.json'
+	]);
 
 	echo FCPATH . 'keys/AJarvis-5bfebda57c5c.json';
 
 	$source  = getcwd() . '/audio_files/output.FLAC';
-	$storage = new StorageClient();
 	$file    = fopen($source, 'r');
 	$bucket  = $storage->bucket($bucketName);
     $object  = $bucket->upload($file, [
