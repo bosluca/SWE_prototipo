@@ -5,6 +5,8 @@ require  FCPATH . '/vendor/autoload.php';
 
 # Imports the Google Cloud client library
 use Google\Cloud\Storage\StorageClient;
+use Silex\Application;
+use Symfony\Component\HttpFoundation\Request;
 
 function upload_file($file_path = false, $file_name = false)
 {
@@ -60,6 +62,10 @@ function debug()
 	else {
 		printf('Failed uploaded %s to gs://%s/%s' . PHP_EOL, basename($source), $bucketName, $objectName);
 	}*/
+
+	// create the Silex application
+$app = new Application();
+
 
 	$app->post('/write', function (Request $request) use ($app) {
 	    $storage = $app['storage'];
