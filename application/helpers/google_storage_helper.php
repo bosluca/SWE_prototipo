@@ -6,9 +6,9 @@ require  FCPATH . '/vendor/autoload.php';
 # Imports the Google Cloud client library
 use Google\Cloud\Storage\StorageClient;
 
-function upload_file($file_path = false)
+function upload_file($file_path = false, $file_name = false)
 {
-	if($file_path){
+	if($file_path && $file_name){
 		# Your Google Cloud Platform project ID
 		$projectId = 'pacific-apex-195814';
 
@@ -18,7 +18,28 @@ function upload_file($file_path = false)
 			'keyFilePath' =>  FCPATH . 'keys/AJarvis-5bfebda57c5c.json'
 		]);
 
+		$CI = & get_instance();
+	    $CI->config->load('google_cloud');
 
+		# Your Google Cloud Platform project ID
+		$projectId  = $CI->config->item('project_id');
+		$bucketName = $CI->config->item('audio_bucket_name');
+		$objectName = 'output.FLAC';
+
+		# Instantiates a client
+		$storage = new StorageClient([
+			'projectId'   => $projectId,
+			'keyFilePath' =>  FCPATH . 'keys/AJarvis-5bfebda57c5c.json'
+		]);
+
+		echo FCPATH . 'keys/AJarvis-5bfebda57c5c.json';
+
+		$source = getcwd() . '/audio_files/output.FLAC';
+		$file   = fopen($source, 'r');
+		$bucket = $storage->bucket($bucketName);
+		$object = $bucket->upload($file, [
+	        'name' => $objectName
+	    ]);
 	}
 }
 
@@ -40,12 +61,15 @@ function debug()
 
 	echo FCPATH . 'keys/AJarvis-5bfebda57c5c.json';
 
-	$source  = getcwd() . '/audio_files/output.FLAC';
-	$file    = fopen($source, 'r');
-	$bucket  = $storage->bucket($bucketName);
-    $object  = $bucket->upload($file, [
+	$source = getcwd() . '/audio_files/output.FLAC';
+	$file   = fopen($source, 'r');
+	$bucket = $storage->bucket($bucketName);
+	$object = $bucket->upload($file, [
         'name' => $objectName
     ]);
-    printf('Uploaded %s to gs://%s/%s' . PHP_EOL, basename($source), $bucketName, $objectName);
 
+    echo '<pre>';
+print_r($object);
+echo '</pre>';
+die();
 }
