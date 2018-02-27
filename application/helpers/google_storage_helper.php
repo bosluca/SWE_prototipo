@@ -26,38 +26,10 @@ function upload_file($file_path = false, $file_name = false)
 		$bucket = $storage->bucket($bucketName);
 
 		if($bucket->upload($file, ['name' => $file_name])){
-			printf('Uploaded %s to gs://%s/%s' . PHP_EOL, basename($source), $bucketName, $file_name);
+			printf('Uploaded %s to gs://%s/%s' . PHP_EOL, basename($file_path), $bucketName, $file_name);
 		}
 		else {
-			printf('Failed uploaded %s to gs://%s/%s' . PHP_EOL, basename($source), $bucketName, $file_name);
+			printf('Failed uploaded %s to gs://%s/%s' . PHP_EOL, basename($file_path), $bucketName, $file_name);
 		}
-	}
-}
-
-function debug()
-{
-	$CI = & get_instance();
-    $CI->config->load('google_cloud');
-
-	# Your Google Cloud Platform project ID
-	$projectId  = $CI->config->item('project_id');
-	$bucketName = $CI->config->item('audio_bucket_name');
-	$objectName = 'output.FLAC';
-
-	# Instantiates a client
-	$storage = new StorageClient([
-		'projectId'   => $projectId,
-		'keyFilePath' =>  FCPATH . 'keys/AJarvis-5bfebda57c5c.json'
-	]);
-
-	$source = getcwd() . '/audio_files/output.FLAC';
-	$file   = fopen($source, 'r');
-	$bucket = $storage->bucket($bucketName);
-
-	if($bucket->upload($file, ['name' => $objectName])){
-		printf('Uploaded %s to gs://%s/%s' . PHP_EOL, basename($source), $bucketName, $objectName);
-	}
-	else {
-		printf('Failed uploaded %s to gs://%s/%s' . PHP_EOL, basename($source), $bucketName, $objectName);
 	}
 }
