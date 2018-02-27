@@ -3,6 +3,7 @@
 function upload_file($file_path = false)
 {
 	if($file_path){
+		echo $file_path; die();
 		# Includes the autoloader for libraries installed with composer
 		require __DIR__ . '/vendor/autoload.php';
 
@@ -14,8 +15,7 @@ function upload_file($file_path = false)
 
 		# Instantiates a client
 		$storage = new StorageClient([
-			'projectId'   => $projectId
-			'keyFile'     => json_decode(file_get_contents(__DIR__ . '/keys/AJarvis-5bfebda57c5c.json'), true),
+			'projectId'   => $projectId,
 			'keyFilePath' => __DIR__ . '/keys/AJarvis-5bfebda57c5c.json'
 		]);
 
