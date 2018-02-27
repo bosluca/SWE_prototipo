@@ -38,9 +38,7 @@ class Recorder extends CI_Controller {
 		    unlink($wav_file);
 
 		    // upload file to google storage
-			upload_file('ciao');
-
-		    $command = 'gsutil cp ' . $flac_file . ' gs://ajarvis-recorder';
+			upload_file($flac_file, $fname . '.FLAC');
 		}
 	}
 
