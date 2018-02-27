@@ -38,10 +38,9 @@ class Recorder extends CI_Controller {
 		    unlink($wav_file);
 
 		    // upload file to google storage
+			upload_file('ciao');
+
 		    $command = 'gsutil cp ' . $flac_file . ' gs://ajarvis-recorder';
-		    $command = 'sudo gsutil cp /var/www/secure/prototipo/audio_files/output.FLAC gs://ajarvis-recorder';
-		    echo shell_exec($command);
-		    echo $command;
 		}
 	}
 
@@ -49,6 +48,6 @@ class Recorder extends CI_Controller {
 	{
 		$this->load->helper('google_storage_helper');
 
-		upload_file('ciao');
+		debug();
 	}
 }
