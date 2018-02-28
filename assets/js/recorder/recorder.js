@@ -8,6 +8,9 @@ var stop   = document.querySelector('.stop');
 stop.disabled = true;
 
 var audioCtx  = new (window.AudioContext || webkitAudioContext)();
+var timer;
+var seconds = 0, minutes = 0, hours = 0;
+var lastTimerText = '';
 
 //main block for doing the audio recording
 
@@ -27,6 +30,9 @@ if (navigator.mediaDevices.getUserMedia) {
 
 			stop.disabled   = false;
 			record.disabled = true;
+
+			timer = setInterval(updateTimer, 1000);
+			$('#timer').text(timerToText());
 		}
 
 		stop.onclick = function() {
@@ -34,13 +40,15 @@ if (navigator.mediaDevices.getUserMedia) {
 			record.disabled = false;
 
 			mediaRecorder.stop();
+			clearTimeout(timer);
+			lastTimerText = timerToText(true);
+			seconds = minutes = hours = 0;
 		}
 
 		mediaRecorder.onstop = function(e) {
-			var clipLabel     = document.createElement('p');
-
-			var blob = new Blob(chunks, { 'type' : 'audio/wav; codecs=wav' });
-			chunks = [];
+			var clipLabel = document.createElement('p');
+			var blob     = new Blob(chunks, { 'type' : 'audio/wav; codecs=wav' });
+			chunks       = [];
 			var audioURL = window.URL.createObjectURL(blob);
 			addAudioElement(audioURL, blob.size);
 
@@ -72,6 +80,40 @@ function visualize(stream) {
 	source.connect(analyser);
 }
 
+function updateTimer(){
+	seconds++;
+
+	if(seconds == 60){
+		minutes++;
+		seconds = 0;
+
+		if(minutes == 60){
+			hours++;
+			minutes = 0;
+		}
+	}
+
+	$('#timer').text(timerToText());
+}
+
+function timerToText(asResult = false){
+	var timerText = '';
+
+	if(asResult){
+		timerText = ' [durata = ';
+		timerText += hours > 0 ? hours + ' ore ' : '';
+		timerText += minutes > 0 ? minutes + ' minuti ' : '';
+		timerText += seconds + ' secondi]';
+	}
+	else {
+		timerText = hours < 10 ? '0' + hours : hours;
+		timerText += minutes < 10 ? ':0' + minutes : ':' + minutes;
+		timerText += seconds < 10 ? ':0' + seconds : ':' + seconds;
+	}
+
+	return timerText;
+}
+
 function addAudioElement(blobUrl, size)
 {
 	// calculate KB or MB for file size
@@ -87,7 +129,7 @@ function addAudioElement(blobUrl, size)
 		size = '(' + size + ' KB) ';
 	}
 
-	var desc = new Date().toLocaleString() + ' ' + size;
+	var desc = new Date().toLocaleString() + ' ' + lastTimerText + ' ' + size;
 	var newAudio = '<div class="audio-element">' + desc + '<div class="controls"><button type="button" class="btn btn-sm btn-success save-element" data-blob="' + blobUrl + '" data-index="' + blobs_index + '"><i class="ion-ios-checkmark"></i> SALVA</button><button class="btn btn-sm btn-danger delete-element"><i class="ion-ios-close"></i> SCARTA</button></div></div>';
 
 	$('#downloadContainer').append(newAudio);

@@ -5,3 +5,9 @@
 .audio-element .btn {
 	margin-right: .5em;
 }
+
+#timer {
+	float: right;
+	line-height: 2em;
+	font-size: 1.1em;
+}

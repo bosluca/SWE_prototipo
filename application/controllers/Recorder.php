@@ -34,9 +34,6 @@ class Recorder extends CI_Controller {
 		    $command = '/usr/bin/ffmpeg -i ' . $wav_file . ' -ac 1 ' . $flac_file;
 		    exec($command);
 
-		    // delete old wav file
-		    // unlink($wav_file);
-
 		    // upload file to google storage
 			upload_file($flac_file, $fname . '.FLAC');
 		}
