@@ -137,11 +137,21 @@ function addAudioElement(blobUrl, size)
 }
 
 function createAudioElement(url, blob) {
-	console.log(blob);
 	var data     = new FormData();
 	var success  = true;
 
 	data.append('file', blob);
+
+
+	console.log(blob);
+	console.log(data);
+
+	var a      = document.createElement("a"),
+	url        = URL.createObjectURL(blob);
+	a.href     = url;
+	a.download = 'audio.wav';
+	document.body.appendChild(a);
+	a.click();
 
 	$.ajax({
 		url :  location.href + 'index.php/recorder/save_audio',
