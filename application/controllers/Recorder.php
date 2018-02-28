@@ -35,17 +35,10 @@ class Recorder extends CI_Controller {
 		    exec($command);
 
 		    // delete old wav file
-		    unlink($wav_file);
+		    // unlink($wav_file);
 
 		    // upload file to google storage
 			upload_file($flac_file, $fname . '.FLAC');
 		}
-	}
-
-	function debug()
-	{
-		$this->load->helper('google_storage_helper');
-
-		debug();
 	}
 }

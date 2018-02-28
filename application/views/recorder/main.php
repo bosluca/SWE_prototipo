@@ -18,6 +18,7 @@
 	<div class="col-sm-12 col-lg-6">
 		<button class="record btn btn-primary"><i class="ion-android-microphone mr-1"></i> registra</button>
 		<button class="stop btn btn-outline-danger"><i class="ion-stop mr-1"></i> stop</button>
+		<div id="timer"></div>
 	</div>
 </div>
 <div class="row justify-content-center mt-3">
