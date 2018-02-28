@@ -53,8 +53,9 @@ function debug()
 		'keyFilePath' =>  FCPATH . 'keys/AJarvis-5bfebda57c5c.json'
 	]);
 
-	/*$source = getcwd() . '/audio_files/output.FLAC';
+	$source = getcwd() . '/audio_files/output.FLAC';
 	$file   = fopen($source, 'r');
+	/*
 	$bucket = $storage->bucket($bucketName);
 
 	if($bucket->upload($file, ['name' => $objectName])){
@@ -79,8 +80,8 @@ function debug()
 	$app->post('/write', function (Request $request) use ($app) {
 	    $storage = $app['storage'];
 	    $metadata = ['contentType' => 'audio/x-flac'];
-	    $storage->bucket($bucketName)->upload($content, [
-	        'name' => $objectName,
+	    $storage->bucket($bucketName)->upload($file, [
+	        'name'     => $objectName,
 	        'metadata' => $metadata,
 	    ]);
 	});
