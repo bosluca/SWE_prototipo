@@ -137,7 +137,7 @@ function addAudioElement(blobUrl, size)
 }
 
 function createAudioElement(url, blob) {
-	var filename = 'audio_file.wav';
+	console.log(blob);
 	var data     = new FormData();
 	var success  = true;
 
