@@ -28,14 +28,16 @@ class Recorder extends CI_Controller {
 			$flac_file = $path . '/' . $fname . ".FLAC";
 
 			// save wav file
-		    move_uploaded_file($_FILES['file']['tmp_name'], 'audio_files/' . $fname . '.wav');
+		    if(move_uploaded_file($_FILES['file']['tmp_name'], 'audio_files/' . $fname . '.wav')){
+		    	echo 'file saved ' . $wav_file;
 
-		    // convert wav to FLAC
-		    $command = '/usr/bin/ffmpeg -i ' . $wav_file . ' -ac 1 ' . $flac_file;
-		    exec($command);
+			    // convert wav to FLAC
+			    $command = '/usr/bin/ffmpeg -i ' . $wav_file . ' -ac 1 ' . $flac_file;
+			    exec($command);
 
-		    // upload file to google storage
-			upload_file($flac_file, $fname . '.FLAC');
+			    // upload file to google storage
+				upload_file($flac_file, $fname . '.FLAC');
+		    }
 		}
 	}
 }

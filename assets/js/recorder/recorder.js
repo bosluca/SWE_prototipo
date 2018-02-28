@@ -43,6 +43,7 @@ if (navigator.mediaDevices.getUserMedia) {
 			clearTimeout(timer);
 			lastTimerText = timerToText(true);
 			seconds = minutes = hours = 0;
+			$('#timer').text('');
 		}
 
 		mediaRecorder.onstop = function(e) {
