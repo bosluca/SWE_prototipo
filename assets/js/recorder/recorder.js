@@ -102,8 +102,8 @@ function timerToText(asResult = false){
 
 	if(asResult){
 		timerText = ' [durata = ';
-		timerText += hours > 0 ? hours + ' ore ' : '';
-		timerText += minutes > 0 ? minutes + ' minuti ' : '';
+		timerText += hours > 0 ? hours + ' ore - ' : '';
+		timerText += minutes > 0 ? minutes + ' minuti - ' : '';
 		timerText += seconds + ' secondi]';
 	}
 	else {

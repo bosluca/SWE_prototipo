@@ -20,6 +20,10 @@ class Recorder extends CI_Controller {
 
 	function save_audio()
 	{
+		echo '<pre>';
+		print_r($_FILES);
+		echo '</pre>';
+
 		if(isset($_FILES['file']) && !$_FILES['file']['error']){
 			$this->load->helper('google_storage_helper');
 			$fname     = date('Y-m-d_H-i-s');
@@ -37,6 +41,9 @@ class Recorder extends CI_Controller {
 
 			    // upload file to google storage
 				upload_file($flac_file, $fname . '.FLAC');
+		    }
+		    else {
+		    	echo 'file not saved';
 		    }
 		}
 	}
