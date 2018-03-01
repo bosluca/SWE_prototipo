@@ -136,16 +136,23 @@ function addAudioElement(blobUrl, size)
 	$('#downloadContainer').append(newAudio);
 }
 
+var ajax;
+
 function createAudioElement(url, blob) {
 	var data     = new FormData();
 	var success  = true;
 
 	data.append('file', blob);
 
+	ajax = new XMLHttpRequest();
+	ajax.upload.addEventListener("progress", caricamento, false);
+	ajax.addEventListener("load", caricamentoCompletato, false);
+	ajax.addEventListener("error", erroreCaricamento, false);
+	ajax.addEventListener("abort", caricamentoAnnullato, false);
+	ajax.open("POST", location.href + 'index.php/recorder/save_audio',true);
+	ajax.send(data);
 
-	console.log(blob);
-	console.log(data);
-
+/*
 	var a      = document.createElement("a"),
 	url        = URL.createObjectURL(blob);
 	a.href     = url;
@@ -164,7 +171,7 @@ function createAudioElement(url, blob) {
 		}
 	}).done(function(data) {
 		console.log(data);
-    });
+    });*/
 
 	return success;
 }
@@ -183,3 +190,26 @@ $('body').on('click','.save-element',function(){
 $('body').on('click','.delete-element',function(){
 	$(this).closest('.audio-element').remove();
 });
+
+function caricamento(event)
+{
+	var percentuale = (event.loaded / event.total) * 100;
+
+	console.log(percentuale);
+}
+
+function caricamentoCompletato(event)
+{
+	console.log('caricamento completato');
+}
+
+function erroreCaricamento(event)
+{
+	console.log('errore caricamento: ' + event);
+}
+
+function caricamentoAnnullato(event)
+{
+	console.log('caricamento annullato: ' + event);
+}
+
