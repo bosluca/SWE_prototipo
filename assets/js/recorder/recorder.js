@@ -144,6 +144,9 @@ function createAudioElement(url, blob) {
 
 	data.append('file', blob);
 
+	$('#uploadProgress').css('width', '0%');
+	$('#uploadProgress').closest('.progress').removeClass('d-none');
+
 	ajax = new XMLHttpRequest();
 	ajax.upload.addEventListener("progress", caricamento, false);
 	ajax.addEventListener("load", caricamentoCompletato, false);
@@ -151,8 +154,6 @@ function createAudioElement(url, blob) {
 	ajax.addEventListener("abort", caricamentoAnnullato, false);
 	ajax.open("POST", location.href + 'index.php/recorder/save_audio',true);
 	ajax.send(data);
-
-	$('#uploadProgress').removeClass('d-none');
 
 /*
 	var a      = document.createElement("a"),
