@@ -155,6 +155,8 @@ function createAudioElement(url, blob) {
 	ajax.open("POST", location.href + 'index.php/recorder/save_audio',true);
 	ajax.send(data);
 
+	console.log('si');
+
 /*
 	var a      = document.createElement("a"),
 	url        = URL.createObjectURL(blob);
