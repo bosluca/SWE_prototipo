@@ -195,7 +195,7 @@ function caricamento(event)
 {
 	var percentuale = (event.loaded / event.total) * 100;
 
-	console.log(percentuale);
+	$('#uploadProgress').css('width',percentuale + '%');
 }
 
 function caricamentoCompletato(event)
