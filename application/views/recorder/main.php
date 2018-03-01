@@ -16,7 +16,7 @@
 </div>
 <div class="row justify-content-center mt-3">
 	<div class="col-sm-12 col-lg-6">
-		<div class="progress d-none">
+		<div class="progress progress-bar-striped progress-bar-animated d-none">
 	  		<div class="progress-bar" id="uploadProgress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
 		</div>
 	</div>
