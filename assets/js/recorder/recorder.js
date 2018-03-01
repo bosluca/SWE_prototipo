@@ -204,7 +204,7 @@ function caricamento(event)
 function caricamentoCompletato(event)
 {
 	console.log('caricamento completato');
-	$('#uploadProgress').addClass('d-none');
+	$('#uploadProgress').closest('.progress').addClass('d-none');
 }
 
 function erroreCaricamento(event)
