@@ -152,6 +152,8 @@ function createAudioElement(url, blob) {
 	ajax.open("POST", location.href + 'index.php/recorder/save_audio',true);
 	ajax.send(data);
 
+	$('#uploadProgress').removeClass('d-none');
+
 /*
 	var a      = document.createElement("a"),
 	url        = URL.createObjectURL(blob);
@@ -201,6 +203,7 @@ function caricamento(event)
 function caricamentoCompletato(event)
 {
 	console.log('caricamento completato');
+	$('#uploadProgress').addClass('d-none');
 }
 
 function erroreCaricamento(event)
