@@ -47,4 +47,11 @@ class Recorder extends CI_Controller {
 		    }
 		}
 	}
+
+	function debug()
+	{
+		echo ini_get('post_max_size');
+		echo '<br>';
+		echo ini_get('upload_max_filesize');
+	}
 }
