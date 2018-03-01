@@ -20,10 +20,6 @@ class Recorder extends CI_Controller {
 
 	function save_audio()
 	{
-		echo '<pre>';
-		print_r($_FILES);
-		echo '</pre>';
-
 		if(isset($_FILES['file']) && !$_FILES['file']['error']){
 			$this->load->helper('google_storage_helper');
 			$fname     = date('Y-m-d_H-i-s');
@@ -33,14 +29,13 @@ class Recorder extends CI_Controller {
 
 			// save wav file
 		    if(move_uploaded_file($_FILES['file']['tmp_name'], 'audio_files/' . $fname . '.wav')){
-		    	echo 'file saved ' . $wav_file;
-
 			    // convert wav to FLAC
 			    $command = '/usr/bin/ffmpeg -i ' . $wav_file . ' -ac 1 ' . $flac_file;
 			    exec($command);
 
 			    // upload file to google storage
 				upload_file($flac_file, $fname . '.FLAC');
+				unlink($wav_file);
 		    }
 		    else {
 		    	echo 'file not saved';

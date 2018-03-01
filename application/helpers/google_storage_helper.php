@@ -30,6 +30,7 @@ function upload_file($file_path = false, $file_name = false)
 
 		if($bucket->upload($file, ['name' => $file_name,'metadata' => $metadata])){
 			printf('Uploaded %s to gs://%s/%s' . PHP_EOL, basename($file_path), $bucketName, $file_name);
+			unlink($file_path);
 		}
 		else {
 			printf('Failed uploaded %s to gs://%s/%s' . PHP_EOL, basename($file_path), $bucketName, $file_name);

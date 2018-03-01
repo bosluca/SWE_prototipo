@@ -155,27 +155,6 @@ function createAudioElement(url, blob) {
 	ajax.open("POST", location.href + 'index.php/recorder/save_audio',true);
 	ajax.send(data);
 
-/*	var a      = document.createElement("a"),
-	url        = URL.createObjectURL(blob);
-	a.href     = url;
-	a.download = 'audio.wav';
-	document.body.appendChild(a);
-	a.click();
-
-	$.ajax({
-		url :  location.href + 'index.php/recorder/save_audio',
-		type: 'POST',
-		data: data,
-		contentType: false,
-		processData: false,
-		error: function(event) {
-			success = false;
-			console.log('error' +  event);
-		}
-	}).done(function(data) {
-		console.log(data);
-    });*/
-
 	return success;
 }
 
