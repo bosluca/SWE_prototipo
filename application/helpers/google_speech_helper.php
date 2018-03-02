@@ -36,6 +36,11 @@ function transcribe_async_gcs($objectName, $languageCode = 'it-IT', $options = [
         'keyFilePath'  => $keyFilePath
     ]);
 
+    echo '<pre>';
+print_r($speech);
+echo '</pre>';
+die();
+
     // Fetch the storage object
     $storage = new StorageClient([
         'projectId'   => $projectId,
