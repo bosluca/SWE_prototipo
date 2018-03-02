@@ -55,11 +55,6 @@ function transcribe_async_gcs($objectName, $languageCode = 'it-IT', $options = [
         $operation->reload();
     }
 
-    echo '<pre>';
-print_r($operation);
-echo '</pre>';
-die();
-
     $ret = ['<<< Nessunoo ha parlato >>>'];
 
     // Print the results
