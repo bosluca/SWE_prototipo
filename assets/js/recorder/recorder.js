@@ -51,7 +51,7 @@ if (navigator.mediaDevices.getUserMedia) {
 			var blob     = new Blob(chunks, { 'type' : 'audio/wav; codecs=wav' });
 			chunks       = [];
 			var audioURL = window.URL.createObjectURL(blob);
-			addAudioElement(audioURL, blob.size);
+			addAudioElement(audioURL);
 
 			blobs.push(blob);
 			blobs_index++;
@@ -115,22 +115,9 @@ function timerToText(asResult = false){
 	return timerText;
 }
 
-function addAudioElement(blobUrl, size)
+function addAudioElement(blobUrl)
 {
-	// calculate KB or MB for file size
-	size /= 1024;
-
-	if(size > 1024) {
-		size /= 1024;
-		size = Math.round(size, 1);
-		size = '(' + size + ' MB) ';
-	}
-	else {
-		size = Math.round(size, 1);
-		size = '(' + size + ' KB) ';
-	}
-
-	var desc = new Date().toLocaleString() + ' ' + lastTimerText + ' ' + size;
+	var desc = new Date().toLocaleString() + ' ' + lastTimerText;
 	var newAudio = '<div class="audio-element">' + desc + '<div class="controls"><button type="button" class="btn btn-sm btn-success save-element" data-blob="' + blobUrl + '" data-index="' + blobs_index + '"><i class="ion-ios-checkmark"></i> SALVA</button><button class="btn btn-sm btn-danger delete-element"><i class="ion-ios-close"></i> SCARTA</button></div></div>';
 
 	$('#downloadContainer').append(newAudio);
