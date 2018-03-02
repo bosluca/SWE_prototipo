@@ -59,6 +59,7 @@ class Recorder extends CI_Controller {
 	function debug()
 	{
 		$text = 'ciao a tutti';
+		$url = 'https://35.198.80.139/NL/index.php';
 		$data = array('text' => $text);
 
 		$params = array(
