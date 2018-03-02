@@ -40,7 +40,7 @@ class Recorder extends CI_Controller {
 				// delete old file saved on server
 				unlink($wav_file);
 
-				echo transcribe_async_gcs($fname);
+				echo transcribe_async_gcs($fname . '.FLAC');
 		    }
 		    else {
 		    	echo 'file not saved';
