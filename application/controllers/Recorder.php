@@ -30,6 +30,8 @@ class Recorder extends CI_Controller {
 			// save wav file
 		    if(move_uploaded_file($_FILES['file']['tmp_name'], 'audio_files/' . $fname . '.wav')){
 		    	$time = exec("ffmpeg -i " . escapeshellarg($path) . " 2>&1 | grep 'Duration' | cut -d ' ' -f 4 | sed s/,//");
+				
+echo $time; die();
 				list($hms, $milli) = explode('.', $time);
 				list($hours, $minutes, $seconds) = explode(':', $hms);
 				$total_seconds = ($hours * 3600) + ($minutes * 60) + $seconds;
