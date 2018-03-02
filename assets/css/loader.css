@@ -3,11 +3,6 @@
     line-height: 2.8em;
 }
 
-.loader {
-    width: 64px;
-    height: 64px;
-}
-
 .loader div {
     display: inline-block;
     position: absolute;
