@@ -30,7 +30,7 @@ class Recorder extends CI_Controller {
 			// save wav file
 		    if(move_uploaded_file($_FILES['file']['tmp_name'], 'audio_files/' . $fname . '.wav')){
 			    // convert wav to FLAC
-			    $command = '/usr/bin/ffmpeg -i ' . $wav_file  . ' -r 16000'. ' -ac 1 ' . $flac_file;
+			    $command = '/usr/bin/ffmpeg -i ' . $wav_file  . ' -ar 44100'. ' -ac 1 ' . $flac_file;
 			    echo $command . '<br>';
 			    exec($command);
 
