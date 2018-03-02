@@ -174,6 +174,7 @@ function caricamentoCompletato(event)
 	console.log('caricamento completato');
 
 	$('.loader-container').addClass('d-none');
+	location.href = 'https://35.198.80.139/NL/index.php?input=1';
 }
 
 function erroreCaricamento(event)

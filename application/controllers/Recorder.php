@@ -45,7 +45,6 @@ class Recorder extends CI_Controller {
 
 					$output = 'text/input.txt';
 					file_put_contents($output, $text);
-					header('Location: https://35.198.80.139/NL/index.php?input=1');
 				}
 				else {
 					echo 'unable to upload file on google-storage';
