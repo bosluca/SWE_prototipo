@@ -5,6 +5,7 @@ class Recorder extends CI_Controller {
 	function __construct()
     {
         parent::__construct();
+        $this->load->helper(array('google_storage_helper','google_speech_helper'));
     }
 
 	function index()
@@ -21,7 +22,7 @@ class Recorder extends CI_Controller {
 	function save_audio()
 	{
 		if(isset($_FILES['file']) && !$_FILES['file']['error']){
-			$this->load->helper('google_storage_helper');
+			
 			$fname     = date('Y-m-d_H-i-s');
 			$path      = getcwd() . '/audio_files';
 			$wav_file  = $path . '/' . $fname . ".wav";
