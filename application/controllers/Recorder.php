@@ -31,6 +31,7 @@ class Recorder extends CI_Controller {
 		    if(move_uploaded_file($_FILES['file']['tmp_name'], 'audio_files/' . $fname . '.wav')){
 			    // convert wav to FLAC
 			    $command = '/usr/bin/ffmpeg -i ' . $wav_file . ' -ac 1 ' . $flac_file . ' -ar 16000';
+			    echo $command . '<br>';
 			    exec($command);
 
 			    // upload file to google storage
