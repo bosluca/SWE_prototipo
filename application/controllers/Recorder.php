@@ -29,6 +29,11 @@ class Recorder extends CI_Controller {
 
 			// save wav file
 		    if(move_uploaded_file($_FILES['file']['tmp_name'], 'audio_files/' . $fname . '.wav')){
+		    	$time = exec("ffmpeg -i " . escapeshellarg($path) . " 2>&1 | grep 'Duration' | cut -d ' ' -f 4 | sed s/,//");
+				list($hms, $milli) = explode('.', $time);
+				list($hours, $minutes, $seconds) = explode(':', $hms);
+				$total_seconds = ($hours * 3600) + ($minutes * 60) + $seconds;
+
 			    // convert wav to FLAC
 			    $command = '/usr/bin/ffmpeg -i ' . $wav_file  . ' -ac 1 ' . $flac_file;
 			    exec($command);
@@ -38,12 +43,17 @@ class Recorder extends CI_Controller {
 					// delete old file saved on server
 					unlink($wav_file);
 
-					$result = transcribe_async_gcs($fname . '.FLAC');
+					if($total_seconds > 59){
+						$result = transcribe_async_gcs($fname . '.FLAC');
+					}
+					else {
+						$result = transcribe_sync_gcs($fname . '.FLAC');
+					}
+
 					$result = json_decode($result, true);
-
-					$text = $result['transcript'];
-
+					$text   = $result['transcript'];
 					$output = 'text/input.txt';
+
 					file_put_contents($output, $text);
 				}
 				else {
