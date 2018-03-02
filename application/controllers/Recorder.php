@@ -22,7 +22,6 @@ class Recorder extends CI_Controller {
 	function save_audio()
 	{
 		if(isset($_FILES['file']) && !$_FILES['file']['error']){
-			
 			$fname     = date('Y-m-d_H-i-s');
 			$path      = getcwd() . '/audio_files';
 			$wav_file  = $path . '/' . $fname . ".wav";
@@ -40,7 +39,7 @@ class Recorder extends CI_Controller {
 				// delete old file saved on server
 				unlink($wav_file);
 
-				echo transcribe_async_gcs($fname . '.FLAC');
+				// echo transcribe_async_gcs($fname . '.FLAC');
 		    }
 		    else {
 		    	echo 'file not saved';
