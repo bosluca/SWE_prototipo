@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 function upload_file($file_path = false, $file_name = false)
 {
+	$result = false;
+
 	if($file_path && $file_name){
 		$CI = & get_instance();
 	    $CI->config->load('google_cloud');
@@ -32,9 +34,12 @@ function upload_file($file_path = false, $file_name = false)
 		if($bucket->upload($file, ['name' => $file_name,'metadata' => $metadata])){
 			printf('Uploaded %s to gs://%s/%s' . PHP_EOL, basename($file_path), $bucketName, $file_name);
 			unlink($file_path);
+			$result = true;
 		}
 		else {
 			printf('Failed uploaded %s to gs://%s/%s' . PHP_EOL, basename($file_path), $bucketName, $file_name);
 		}
 	}
+
+	return $result;
 }

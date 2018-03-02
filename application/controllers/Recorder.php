@@ -34,15 +34,18 @@ class Recorder extends CI_Controller {
 			    exec($command);
 
 			    // upload file to google storage
-				upload_file($flac_file, $fname . '.FLAC');
+				if(upload_file($flac_file, $fname . '.FLAC')){
+					// delete old file saved on server
+					unlink($wav_file);
 
-				// delete old file saved on server
-				unlink($wav_file);
-
-				// echo transcribe_async_gcs($fname . '.FLAC');
+					echo transcribe_async_gcs($fname . '.FLAC');
+				}
+				else {
+					echo 'unable to upload file on google-storage';
+				}
 		    }
 		    else {
-		    	echo 'file not saved';
+		    	echo 'unable to save file on local server';
 		    }
 		}
 	}
