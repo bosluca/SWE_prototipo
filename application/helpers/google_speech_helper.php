@@ -93,7 +93,7 @@ function transcribe_sync_gcs($objectName, $languageCode = 'it-IT', $options = ['
     // Create the speech client
     $speech = new SpeechClient([
         'languageCode' => $languageCode,
-        'keyFilePath'  => __DIR__ . '/chiave/AJarvis-5bfebda57c5c.json'
+        'keyFilePath'  => $keyFilePath
     ]);
 
     // Fetch the storage object
