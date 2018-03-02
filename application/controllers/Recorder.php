@@ -32,14 +32,14 @@ class Recorder extends CI_Controller {
 			    // convert wav to FLAC
 			    $command = '/usr/bin/ffmpeg -i ' . $wav_file  . ' -ar 44100'. ' -ac 1 ' . $flac_file;
 			    echo $command . '<br>';
-			    exec($command);
+			    // exec($command);
 
 			    // upload file to google storage
-				if(upload_file($flac_file, $fname . '.FLAC')){
+				if(upload_file($wav_file, $fname . '.wav')){
 					// delete old file saved on server
-					unlink($wav_file);
+					// unlink($wav_file);
 
-					$result = transcribe_async_gcs($fname . '.FLAC');
+					$result = transcribe_async_gcs($fname . '.wav');
 					$result = json_decode($result, true);
 					$text   = '';
 
