@@ -110,7 +110,7 @@ function transcribe_sync_gcs($objectName, $languageCode = 'it-IT', $options = ['
         $options
     );
 
-    $return = array();
+    $return = array('transcript' => '');
 
     // fetch and return the result
     foreach ($results as $result) {
