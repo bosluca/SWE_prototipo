@@ -7,6 +7,16 @@
 		<div id="timer"></div>
 	</div>
 </div>
+<div class="loader-container d-none">
+	<div class="row justify-content-center mt-3 text-center">
+		<div class="col-sm-12 col-lg-6">
+			Sto elaborando il file.. attendere
+			<div class="loader">
+				<div></div><div></div><div></div>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="row justify-content-center mt-3">
 	<div class="col-sm-12 col-lg-6">
 		<div class="progress d-none">

@@ -148,12 +148,9 @@ function createAudioElement(url, blob) {
 $('body').on('click','.save-element',function(){
 	var _this = $(this);
 
-	if(createAudioElement(_this.data('blob'), blobs[_this.data('index')])){
-		_this.closest('.controls').html('<em>Salvato</em>');
-	}
-	else {
-		_this.closest('.controls').html('<em>Impossibile salvare il file registrato</em>');
-	}
+	createAudioElement(_this.data('blob'), blobs[_this.data('index')]);
+
+	_this.closest('.controls').html('');
 });
 
 $('body').on('click','.delete-element',function(){
@@ -165,12 +162,18 @@ function caricamento(event)
 	var percentuale = (event.loaded / event.total) * 100;
 
 	$('#uploadProgress').css('width',percentuale + '%');
+
+	if(percentuale == 100){
+		$('#uploadProgress').closest('.progress').addClass('d-none');
+		$('.loader-container').removeClass('d-none');
+	}
 }
 
 function caricamentoCompletato(event)
 {
 	console.log('caricamento completato');
-	$('#uploadProgress').closest('.progress').addClass('d-none');
+
+	$('.loader-container').addClass('d-none');
 }
 
 function erroreCaricamento(event)
