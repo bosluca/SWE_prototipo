@@ -21,7 +21,7 @@ use Google\Cloud\Core\ExponentialBackoff;
  *
  * @return string the text transcription
  */
-function transcribe_async_gcs($objectName, $languageCode = 'it-IT', $options = ['encoding' => 'wav', 'sampleRateHertz' => 48000])
+function transcribe_async_gcs($objectName, $languageCode = 'it-IT', $options = ['encoding' => 'FLAC', 'sampleRateHertz' => 48000])
 {
     $CI = & get_instance();
     $CI->config->load('google_cloud');
@@ -64,5 +64,60 @@ function transcribe_async_gcs($objectName, $languageCode = 'it-IT', $options = [
     }
 
     return json_encode($ret);
+}
+
+
+/**
+ * Transcribe an audio file using Google Cloud Speech API
+ * Example:
+ * ```
+ * transcribe_sync_gcs('your-bucket-name', 'audiofile.wav');
+ * ```.
+ *
+ * @param string $audioFile path to an audio file.
+ * @param string $languageCode The language of the content to
+ *     be recognized. Accepts BCP-47 (e.g., `"en-US"`, `"es-ES"`).
+ * @param array $options configuration options.
+ *
+ * @return string the text transcription
+ */
+function transcribe_sync_gcs($objectName, $languageCode = 'it-IT', $options = ['encoding' => 'FLAC', 'sampleRateHertz' => 48000])
+{
+    $CI = & get_instance();
+    $CI->config->load('google_cloud');
+
+    $projectId   = $CI->config->item('project_id');
+    $bucketName  = $CI->config->item('audio_bucket_name');
+    $keyFilePath = $CI->config->item('key_file_path');
+
+    // Create the speech client
+    $speech = new SpeechClient([
+        'languageCode' => $languageCode,
+        'keyFilePath'  => __DIR__ . '/chiave/AJarvis-5bfebda57c5c.json'
+    ]);
+
+    // Fetch the storage object
+    $storage = new StorageClient([
+        'projectId'   => $projectId,
+        'keyFilePath' => $keyFilePath
+    ]);
+
+    $object = $storage->bucket($bucketName)->object($objectName);
+
+    // Make the API call
+    $results = $speech->recognize(
+        $object,
+        $options
+    );
+
+    $return = array();
+
+    // fetch and return the result
+    foreach ($results as $result) {
+        $alternative = $result->alternatives()[0];
+        $return[]    = $alternative['transcript']);
+    }
+
+    return json_encode($return);
 }
 ?>

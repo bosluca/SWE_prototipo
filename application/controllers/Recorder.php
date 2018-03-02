@@ -30,22 +30,20 @@ class Recorder extends CI_Controller {
 			// save wav file
 		    if(move_uploaded_file($_FILES['file']['tmp_name'], 'audio_files/' . $fname . '.wav')){
 			    // convert wav to FLAC
-			    $command = '/usr/bin/ffmpeg -i ' . $wav_file  . ' -ar 44100'. ' -ac 1 ' . $flac_file;
-			    echo $command . '<br>';
-			    // exec($command);
+			    $command = '/usr/bin/ffmpeg -i ' . $wav_file  . ' -ac 1 ' . $flac_file;
+			    exec($command);
 
 			    // upload file to google storage
-				if(upload_file($wav_file, $fname . '.wav')){
+				if(upload_file($flac_file, $fname . '.FLAC')){
 					// delete old file saved on server
-					// unlink($wav_file);
+					unlink($wav_file);
 
-					$result = transcribe_async_gcs($fname . '.wav');
+					$result = transcribe_sync_gcs($fname . '.FLAC');
 					$result = json_decode($result, true);
-					$text   = '';
 
-					if(isset($result['transcript'])){
-						$text = $result['transcript'];
-					}
+					echo '<pre>';
+					print_r($result);
+					echo '</pre>';
 				}
 				else {
 					echo 'unable to upload file on google-storage';

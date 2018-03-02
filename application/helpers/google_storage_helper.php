@@ -29,7 +29,7 @@ function upload_file($file_path = false, $file_name = false)
 		// open file and instantiate bucket
 		$file     = fopen($file_path, 'r');
 		$bucket   = $storage->bucket($bucketName);
-		$metadata = ['contentType' => 'audio/wav','uploadType' => 'resumable'];
+		$metadata = ['contentType' => 'audio/flac','uploadType' => 'resumable'];
 
 		if($bucket->upload($file, ['name' => $file_name,'metadata' => $metadata])){
 			printf('Uploaded %s to gs://%s/%s' . PHP_EOL, basename($file_path), $bucketName, $file_name);
