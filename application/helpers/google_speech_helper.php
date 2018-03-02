@@ -50,12 +50,15 @@ function transcribe_async_gcs($objectName, $languageCode = 'it-IT', $options = [
         $options
     );
 
-    die("QUA OK");
-
     while(!$operation->isComplete()){
         sleep(100);
         $operation->reload();
     }
+
+    echo '<pre>';
+print_r($operation);
+echo '</pre>';
+die();
 
     $ret = ['<<< Nessunoo ha parlato >>>'];
 
