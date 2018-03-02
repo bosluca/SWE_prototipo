@@ -42,15 +42,9 @@ class Recorder extends CI_Controller {
 					$result = json_decode($result, true);
 					$text   = '';
 
-					echo '<pre>';
-print_r($result);
-echo '</pre>';
-
 					if(isset($result['transcript'])){
 						$text = $result['transcript'];
 					}
-
-					echo $text;
 				}
 				else {
 					echo 'unable to upload file on google-storage';
@@ -64,8 +58,25 @@ echo '</pre>';
 
 	function debug()
 	{
-		echo ini_get('post_max_size');
-		echo '<br>';
-		echo ini_get('upload_max_filesize');
+		$text = 'ciao a tutti';
+		$data = array('text' => $text);
+
+		$params = array(
+	        'http' => array(
+	            'method' => 'POST',
+	            'content' => http_build_query($data)
+	        )
+	    );
+
+	    $ctx = stream_context_create($params);
+	    $fp = @fopen($url, 'rb', false, $ctx);
+
+	    if ($fp) {
+	        echo @stream_get_contents($fp);
+	        die();
+	    } else {
+	        // Error
+	        throw new Exception("Error loading '$url', $php_errormsg");
+	    }
 	}
 }
