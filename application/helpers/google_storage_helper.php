@@ -14,13 +14,14 @@ function upload_file($file_path = false, $file_name = false)
 		$CI = & get_instance();
 	    $CI->config->load('google_cloud');
 
-		$projectId  = $CI->config->item('project_id');
-		$bucketName = $CI->config->item('audio_bucket_name');
+		$projectId   = $CI->config->item('project_id');
+		$bucketName  = $CI->config->item('audio_bucket_name');
+		$keyFilePath = $CI->config->item('key_file_path');
 
 		// instantiates a client
 		$storage = new StorageClient([
 			'projectId'   => $projectId,
-			'keyFilePath' =>  FCPATH . 'keys/AJarvis-5bfebda57c5c.json'
+			'keyFilePath' => $keyFilePath
 		]);
 
 		// open file and instantiate bucket
