@@ -30,7 +30,7 @@ class Recorder extends CI_Controller {
 			// save wav file
 		    if(move_uploaded_file($_FILES['file']['tmp_name'], 'audio_files/' . $fname . '.wav')){
 			    // convert wav to FLAC
-			    $command = '/usr/bin/ffmpeg -i ' . $wav_file . ' -ac 1 ' . $flac_file;
+			    $command = '/usr/bin/ffmpeg -i ' . $wav_file . ' -ac 1 ' . $flac_file . ' -ar 16000';
 			    exec($command);
 
 			    // upload file to google storage
@@ -60,24 +60,22 @@ class Recorder extends CI_Controller {
 	{
 		$text = 'ciao a tutti';
 		$url = 'https://35.198.80.139/NL/index.php';
-		$data = array('text' => $text);
+		$host = "https://35.198.80.139/NL/";
+		$path = "index.php";
+		$data = "text=" . $text;
+		$data = urlencode($data);
 
-		$params = array(
-	        'http' => array(
-	            'method' => 'POST',
-	            'content' => http_build_query($data)
-	        )
-	    );
-
-	    $ctx = stream_context_create($params);
-	    $fp = @fopen($url, 'rb', false, $ctx);
-
-	    if ($fp) {
-	        echo @stream_get_contents($fp);
-	        die();
-	    } else {
-	        // Error
-	        throw new Exception("Error loading '$url', $php_errormsg");
-	    }
+		header("POST $path HTTP/1.1\\r\
+		" );
+		header("Host: $host\\r\
+		" );
+		header("Content-type: application/x-www-form-urlencoded\\r\
+		" );
+		header("Content-length: " . strlen($data) . "\\r\
+		" );
+		header("Connection: close\\r\
+		\\r\
+		" );
+		header($data);
 	}
 }
