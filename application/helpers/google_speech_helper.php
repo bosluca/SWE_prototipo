@@ -63,7 +63,7 @@ function transcribe_async_gcs($objectName, $languageCode = 'it-IT', $options = [
         $return  = $results[0]->alternatives()[0];
     }
 
-    return json_encode($ret);
+    return json_encode($return);
 }
 
 
