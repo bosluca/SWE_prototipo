@@ -43,7 +43,8 @@ class Recorder extends CI_Controller {
 
 					$text = $result['transcript'];
 
-					echo $text;
+					$output = 'text/input.txt';
+					file_put_contents($output, $text);
 				}
 				else {
 					echo 'unable to upload file on google-storage';
@@ -57,24 +58,9 @@ class Recorder extends CI_Controller {
 
 	function debug()
 	{
-		$text = 'ciao a tutti';
-		$url = 'https://35.198.80.139/NL/index.php';
-		$host = "https://35.198.80.139/NL/";
-		$path = "index.php";
-		$data = "text=" . $text;
-		$data = urlencode($data);
-
-		header("POST $path HTTP/1.1\\r\
-		" );
-		header("Host: $host\\r\
-		" );
-		header("Content-type: application/x-www-form-urlencoded\\r\
-		" );
-		header("Content-length: " . strlen($data) . "\\r\
-		" );
-		header("Connection: close\\r\
-		\\r\
-		" );
-		header($data);
+		$text = 'ciao a tutti2';
+		$output = 'text/input.txt';
+		file_put_contents($output, $text);
+		header('Location: https://35.198.80.139/NL/index.php?input=1');
 	}
 }
