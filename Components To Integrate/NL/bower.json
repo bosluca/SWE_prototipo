@@ -1,0 +1,22 @@
+{
+  "name": "Official",
+  "homepage": "https://github.com/Giglium/Me",
+  "authors": [
+    "giglium <fre095@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^4.0.0",
+    "jQuery": "^1.9.1",
+    "popper.js": "^1.12.9"
+  }
+}
