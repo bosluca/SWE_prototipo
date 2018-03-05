@@ -11,11 +11,15 @@ class Analyzer extends CI_Controller
 
     function index()
     {
-        die("OK");
-        $text = file_get_contents('../../../text/input.txt');
+        /* DEBUG */
+        $string = ' Ieri è andato tutto bene . Oggi devo lavorare perché il cliente vuole nuove interfacce mi ci vorranno 8 ore non so come risolvere . Però il problema dell\'interfaccia web';
+        $output = getcwd() . '/text/input.txt';
+        file_put_contents($output, utf8_encode($string));
 
-        $text = utf8_encode($text);
+        /* END DEBUG */
 
+        $text         = file_get_contents(getcwd() . '/text/input.txt');
+        $text         = utf8_decode($text);
         $content_data = $this->dataReportGenerator($text);
 
         $data['content'] = $this->load->view('analyzer/main', $content_data, TRUE);
@@ -28,7 +32,7 @@ class Analyzer extends CI_Controller
      * @return mixed associative array with all the data for the view
      */
     function dataReportGenerator($string){
-        $json = json_decode( analyzeText( $string ), TRUE);
+        $json = json_decode(analyzeText($string), TRUE);
 
         $data['text'] = $json['text'];
 
