@@ -58,20 +58,20 @@ function get_sentences($report = array(), $type = 'positive')
 
             if($type == 'positive'){
                 if($score > 0.25){
-                    $result[] = $sentence['text']['content'];
-                    $scores[] = $score;
+                    $sentences[] = $sentence['text']['content'];
+                    $scores[]    = $score;
                 }
             }
             else if($type == 'negative'){
                 if($score < -0.25){
-                    $result[] = $sentence['text']['content'];
-                    $scores[] = $score;
+                    $sentences[] = $sentence['text']['content'];
+                    $scores[]    = $score;
                 }
             }
             else {  // neutral
                 if($score >= -0.25 && $score <= 0.25){
-                    $result[] = $sentence['text']['content'];
-                    $scores[] = $score;
+                    $sentences[] = $sentence['text']['content'];
+                    $scores[]    = $score;
                 }
             }
         }
