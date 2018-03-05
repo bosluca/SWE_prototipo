@@ -28,11 +28,6 @@ class Analyzer extends CI_Controller
             'sentences_negative' => get_sentences($report, 'negative'),
         );
 
-echo '<pre>';
-print_r($content_data);
-echo '</pre>';
-die();
-
         $data['content'] = $this->load->view('analyzer/main', $content_data, TRUE);
 
         $this->load->view('template', $data);

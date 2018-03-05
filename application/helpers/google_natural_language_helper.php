@@ -45,7 +45,7 @@ function loadDefaultConfig($language)
 /**
  * @param $report result (as array) from analyzeText
  * @param $type type of sentence (positive,neutral,negative)
- * @return json of array of sentences (positive or negative) and array of sentimen result
+ * @return array of sentences (positive or negative) and array of sentimen result
  */
 function get_sentences($report = array(), $type = 'positive')
 {
@@ -82,5 +82,5 @@ function get_sentences($report = array(), $type = 'positive')
         'scores'    => $scores
     );
 
-    return json_encode($result);
+    return $result;
 }
