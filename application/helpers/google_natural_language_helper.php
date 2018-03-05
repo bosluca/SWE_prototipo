@@ -47,7 +47,7 @@ function loadDefaultConfig($language)
  * @param $type type of sentence (positive,neutral,negative)
  * @return json of array of sentences (positive or negative) and array of sentimen result
  */
-function get_sentences_positive($report = array(), $type = 'positive')
+function get_sentences($report = array(), $type = 'positive')
 {
     $sentences = array();
     $scores    = array();
