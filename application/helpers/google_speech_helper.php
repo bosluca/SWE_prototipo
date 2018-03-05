@@ -21,7 +21,7 @@ use Google\Cloud\Core\ExponentialBackoff;
  *
  * @return string the text transcription
  */
-function transcribe_async_gcs($objectName, $languageCode = 'it-IT', $options = ['encoding' => 'FLAC', 'sampleRateHertz' => 48000])
+function transcribe_async_gcs($objectName, $languageCode = 'it-IT', $options = ['encoding' => 'FLAC', 'sampleRateHertz' => 48000, 'singleUtterance' => true])
 {
     $CI = & get_instance();
     $CI->config->load('google_cloud');
@@ -81,7 +81,7 @@ function transcribe_async_gcs($objectName, $languageCode = 'it-IT', $options = [
  *
  * @return string the text transcription
  */
-function transcribe_sync_gcs($objectName, $languageCode = 'it-IT', $options = ['encoding' => 'FLAC', 'sampleRateHertz' => 48000])
+function transcribe_sync_gcs($objectName, $languageCode = 'it-IT', $options = ['encoding' => 'FLAC', 'sampleRateHertz' => 48000, 'singleUtterance' => true])
 {
     $CI = & get_instance();
     $CI->config->load('google_cloud');
