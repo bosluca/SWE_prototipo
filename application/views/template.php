@@ -27,7 +27,7 @@
 	    ?>
 	</head>
 	<body>
-		<div class="container-fluid page-container">
+		<div class="container-fluid">
 			<?php echo $content; ?>
 		</div>
 		<!-- Load script -->
