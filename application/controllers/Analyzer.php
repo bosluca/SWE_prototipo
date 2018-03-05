@@ -11,16 +11,16 @@ class Analyzer extends CI_Controller
 
     function index()
     {
+        die("OK");
+        $text = file_get_contents('../../../text/input.txt');
 
-            $text = file_get_contents('../../../text/input.txt');
+        $text = utf8_encode($text);
 
-            $text = utf8_encode($text);
+        $content_data = $this->dataReportGenerator($text);
 
-            $content_data = $this->dataReportGenerator($text);
+        $data['content'] = $this->load->view('analyzer/main', $content_data, TRUE);
 
-            $data['content'] = $this->load->view('analyzer/main', $content_data, TRUE);
-
-            $this->load->view('template', $data);
+        $this->load->view('template', $data);
     }
 
     /**
