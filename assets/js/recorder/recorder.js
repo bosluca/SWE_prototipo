@@ -11,6 +11,7 @@ var audioCtx  = new (window.AudioContext || webkitAudioContext)();
 var timer;
 var seconds = 0, minutes = 0, hours = 0;
 var lastTimerText = '';
+var lastDuration  = 0;
 
 //main block for doing the audio recording
 
@@ -42,6 +43,7 @@ if (navigator.mediaDevices.getUserMedia) {
 			mediaRecorder.stop();
 			clearTimeout(timer);
 			lastTimerText = timerToText(true);
+			lastDuration  = seconds + (minutes * 60) + (hours * 3600);
 			seconds = minutes = hours = 0;
 			$('#timer').text('');
 		}
@@ -130,6 +132,7 @@ function createAudioElement(url, blob) {
 	var success  = true;
 
 	data.append('file', blob);
+	data.append('duration', lastDuration);
 
 	$('#uploadProgress').css('width', '0%');
 	$('#uploadProgress').closest('.progress').removeClass('d-none');
@@ -139,7 +142,7 @@ function createAudioElement(url, blob) {
 	ajax.addEventListener("load", caricamentoCompletato, false);
 	ajax.addEventListener("error", erroreCaricamento, false);
 	ajax.addEventListener("abort", caricamentoAnnullato, false);
-	ajax.open("POST", location.href + 'index.php/recorder/save_audio',true);
+	ajax.open("POST", location.href + 'index.php/recorder/save_audio', true);
 	ajax.send(data);
 
 	return success;
