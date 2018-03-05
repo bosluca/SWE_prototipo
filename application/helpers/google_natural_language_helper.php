@@ -41,3 +41,46 @@ function loadDefaultConfig($language)
         'encodingType' => 'UTF8'
     ];
 }
+
+/**
+ * @param $report result (as array) from analyzeText
+ * @param $type type of sentence (positive,neutral,negative)
+ * @return json of array of sentences (positive or negative) and array of sentimen result
+ */
+function get_sentences_positive($report = array(), $type = 'positive')
+{
+    $sentences = array();
+    $scores    = array();
+
+    if(isset($report['sentences'])){
+        foreach($report['sentences'] as $sentence){
+            $score = $sentence['sentiment']['score'];
+
+            if($type == 'positive'){
+                if($score > 0.25){
+                    $result[] = $sentence['text']['content'];
+                    $scores[] = $score;
+                }
+            }
+            else if($type == 'negative'){
+                if($score < -0.25){
+                    $result[] = $sentence['text']['content'];
+                    $scores[] = $score;
+                }
+            }
+            else {  // neutral
+                if($score >= -0.25 && $score <= 0.25){
+                    $result[] = $sentence['text']['content'];
+                    $scores[] = $score;
+                }
+            }
+        }
+    }
+
+    $result = array(
+        'sentences' => $sentences,
+        'scores'    => $scores
+    );
+
+    return json_encode($result);
+}

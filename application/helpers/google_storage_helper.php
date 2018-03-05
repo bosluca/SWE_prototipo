@@ -22,7 +22,6 @@ function upload_file($file_path = false, $file_name = false)
 
 		// instantiates a client
 		$storage = new StorageClient([
-			'projectId'   => $projectId,
 			'keyFilePath' => $keyFilePath
 		]);
 

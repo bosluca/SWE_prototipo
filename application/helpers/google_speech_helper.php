@@ -38,7 +38,6 @@ function transcribe_async_gcs($objectName, $languageCode = 'it-IT', $options = [
 
     // Fetch the storage object
     $storage = new StorageClient([
-        'projectId'   => $projectId,
         'keyFilePath' => $keyFilePath
     ]);
 
@@ -98,7 +97,6 @@ function transcribe_sync_gcs($objectName, $languageCode = 'it-IT', $options = ['
 
     // Fetch the storage object
     $storage = new StorageClient([
-        'projectId'   => $projectId,
         'keyFilePath' => $keyFilePath
     ]);
 
