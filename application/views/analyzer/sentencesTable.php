@@ -18,8 +18,10 @@
 	</thead>
 	<tbody>
 		<?php foreach($sentences['sentences'] as $index => $sentence) : ?>
-			<td><?php echo $sentence; ?></td>
-			<td><?php echo $sentences['scores'][$index]; ?></td>
+			<tr>
+				<td><?php echo $sentence; ?></td>
+				<td><?php echo $sentences['scores'][$index]; ?></td>
+			</tr>
 		<?php endforeach; ?>
 	</tbody>
 </table>
