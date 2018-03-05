@@ -34,6 +34,10 @@ class Analyzer extends CI_Controller
     function dataReportGenerator($string){
         $json = json_decode(analyzeText($string), TRUE);
 
+echo '<pre>';
+print_r($json);
+echo '</pre>';
+die();
         $data['text'] = $json['text'];
 
         return $data;
