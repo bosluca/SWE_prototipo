@@ -16,17 +16,20 @@
     	<link rel="stylesheet" href="<?php echo site_url('assets/css/ionicons/ionicons.min.css'); ?>" />
     	<link rel="stylesheet" href="<?php echo site_url('assets/css/theme.css'); ?>" />
     	<link rel="stylesheet" href="<?php echo site_url('assets/css/loader.css'); ?>" />
-        <script src="<?php echo site_url('assets/js/chartist/chartist.min.js'); ?>"></script>
-        <script src="<?php echo site_url('assets/js/chartist/chartist-plugin-threshold.min.js'); ?>"></script>
-	    <?php
-	        if(isset($theme_css))
-	        {
-	            foreach($theme_css as $css)
-	            {
-	                echo '<link href="' . site_url('assets/css/' . $css) . '?v=' . $this->config->item('site_version') .'" rel="stylesheet" />';
+    	<?php
+	        if(isset($theme_css)){
+	            foreach($theme_css as $css){
+	                echo '<link rel="stylesheet" href="' . site_url('assets/css/' . $css) . '?v=' . $this->config->item('site_version') .'"/>';
 	            }
 	        }
 	    ?>
+    	<?php
+	        if(isset($theme_js_top)){
+	            foreach($theme_js_top as $js){
+	                echo '<script src="' . site_url('assets/js/' . $js) . '?v=' . $this->config->item('site_version') . '"></script>';
+	            }
+	        }
+        ?>
 	</head>
 	<body>
 		<div class="container-fluid">
@@ -36,10 +39,8 @@
 		<script src="<?php echo site_url('assets/js/jquery/jquery.js'); ?>"></script>
 		<script src="<?php echo site_url('assets/js/bootstrap/bootstrap.min.js'); ?>"></script>
 		<?php
-	        if(isset($theme_js))
-	        {
-	            foreach($theme_js as $js)
-	            {
+	        if(isset($theme_js)){
+	            foreach($theme_js as $js){
 	                echo '<script src="' . site_url('assets/js/' . $js) . '?v=' . $this->config->item('site_version') . '"></script>';
 	            }
 	        }

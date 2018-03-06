@@ -1,5 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
+
 <div class="row">
 	<?php if(count($sentences_positive['sentences']) > 0) : ?>
 		<div class="col-sm col-md">
@@ -21,18 +22,24 @@
 	<?php endif; ?>
 </div>
 <div class="row">
-    <p class="h3">Grafio dei tipi:</p>
-    <?php echo $this->load->view('charts/barChart.php', $barChart, TRUE); ?>
+	<div class="col-sm-12">
+	    <p class="h3">Grafio dei tipi:</p>
+	    <?php echo $this->load->view('charts/barChart.php', $barChart, TRUE); ?>
+	</div>
 </div>
 
 <div class="row">
-    <p class="h3">Grafio dei tipi con maggiore dettaglio:</p>
-    <?php echo $this->load->view('charts/barChart.php', $strictBarChart, TRUE); ?>
+	<div class="col-sm-12">
+    	<p class="h3">Grafio dei tipi con maggiore dettaglio:</p>
+    	<?php echo $this->load->view('charts/barChart.php', $strictBarChart, TRUE); ?>
+    </div>
 </div>
 
 <div class="row">
-    <p class="h3">Andamento del discorso:</p>
-    <?php echo $this->load->view('charts/thresholdChart.php', $speechThreshold, TRUE); ?>
+	<div class="col-sm-12">
+    	<p class="h3">Andamento del discorso:</p>
+    	<?php echo $this->load->view('charts/thresholdChart.php', $speechThreshold, TRUE); ?>
+    </div>
 </div>
 
 
