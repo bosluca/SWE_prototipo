@@ -22,12 +22,12 @@
 </div>
 <div class="row">
     <p class="h3">Grafio dei tipi:</p>
-    <?php echo $this->load->view('charts/barChart.php', $pieChart, TRUE); ?>
+    <?php echo $this->load->view('charts/barChart.php', $barChart, TRUE); ?>
 </div>
 
 <div class="row">
-    <p class="h3">Grafio dei con maggiore dettaglio:</p>
-    <?php echo $this->load->view('charts/barChart.php', $strictPieChart, TRUE); ?>
+    <p class="h3">Grafio dei tipi con maggiore dettaglio:</p>
+    <?php echo $this->load->view('charts/barChart.php', $strictBarChart, TRUE); ?>
 </div>
 
 <div class="row">

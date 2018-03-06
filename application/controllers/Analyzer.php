@@ -12,7 +12,7 @@ class Analyzer extends CI_Controller
     function index()
     {
         /* DEBUG */
-        $string = ' Ieri è andato tutto bene . Oggi devo lavorare perché il cliente vuole nuove interfacce mi ci vorranno 8 ore non so come risolvere . Però il problema dell\'interfaccia web é rilevante. Mi piacrebbe avere piú tempo libero, sai faccio nuoto. E oggi ho trovato 50 euro per strada';
+        $string = ' Ieri è andato tutto bene . Oggi devo lavorare perché il cliente vuole nuove interfacce mi ci vorranno 8 ore non so come risolvere . Però il problema dell\'interfaccia web é rilevante. Mi piacrebbe avere piú tempo libero, sai faccio nuoto. E oggi ho trovato 50 euro per strada. Oggi devo lavorare fino a tardi non riusciró a cucinare il pollo.';
         $output = getcwd() . '/text/input.txt';
         file_put_contents($output, utf8_encode($string));
 
@@ -26,10 +26,9 @@ class Analyzer extends CI_Controller
             'sentences_positive' => get_sentences($report, 'positive'),
             'sentences_neutral' => get_sentences($report, 'neutral'),
             'sentences_negative' => get_sentences($report, 'negative'),
-            'pieChart' => $this->createTypePieChart($report, 'pieChart'),
-            'strictPieChart' => $this->createTypePieChart($report, 'strictPieChart', true),
-            'speechThreshold' => $this->createSpeechGoing($report,'speechThreshold')
-
+            'barChart' => $this->createTypeBarChart($report, 'pieChart'),
+            'strictBarChart' => $this->createTypeBarChart($report, 'strictPieChart', true),
+            'speechThreshold' => $this->createSpeechGoing($report, 'speechThreshold')
         );
 
         $data['content'] = $this->load->view('analyzer/main', $content_data, TRUE);
@@ -39,19 +38,24 @@ class Analyzer extends CI_Controller
         $this->load->view('template', $data);
     }
 
-    function createTypePieChart($report, $class, $useStrict = false)
+    /**
+     * @param array $report result (as array) from analyzeText
+     * @param string $class the css class to give at the chart
+     * @param bool $useStrict if true it will give a more accurate analyze. Default false.
+     * @return array create an array for thresholdChart view
+     */
+    function createTypeBarChart($report, $class, $useStrict = false)
     {
 
-        if (isset($report['sentences'])) {
+        if ($useStrict) {
+            $series = array(0, 0, 0, 0, 0, 0);
+            $labels = 'Positive\', \'Negative\', \'Neutrali\', \'Sicuramene Positive\', \'Sicuramente Negative\',\'Miste';
+        } else {
+            $series = array(0, 0, 0);
+            $labels = 'Positive\', \'Negative\', \'Neutrali';
+        }
 
-            if($useStrict){
-                $series = array(0, 0, 0, 0, 0, 0);
-                $labels = 'Positive\', \'Negative\', \'Neutrali\', \'Sicuramene Positive\', \'Sicuramente Negative\',\'Miste';
-            }
-            else{
-                $series = array(0, 0, 0);
-                $labels = 'Positive\', \'Negative\', \'Neutrali';
-            }
+        if (isset($report['sentences'])) {
 
             foreach ($report['sentences'] as $sentence) {
 
@@ -85,32 +89,37 @@ class Analyzer extends CI_Controller
 
             $series = implode(',', $series);
 
-
-            return array(
-                'labels' => $labels,
-                'series' => $series,
-                'class' => $class
-            );
         }
+
+        return array(
+            'labels' => $labels,
+            'series' => $series,
+            'class' => $class
+        );
     }
 
+    /**
+     * @param array $report result (as array) from analyzeText
+     * @param string $class the css class to give at the chart
+     * @return array create an array for thresholdChart view
+     */
     function createSpeechGoing($report, $class)
     {
-        if (isset($report['sentences'])) {
+        $series = array();
 
-            $series = array();
+        if (isset($report['sentences'])) {
 
             foreach ($report['sentences'] as $sentence) {
                 array_push($series, $sentence['sentiment']['score']);
             }
 
             $series = implode(',', $series);
-
-            return array(
-                'series' => $series,
-                'class' => $class
-            );
         }
+
+        return array(
+            'series' => $series,
+            'class' => $class
+        );
     }
 
 }
