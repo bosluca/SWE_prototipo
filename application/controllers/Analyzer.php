@@ -27,7 +27,7 @@ class Analyzer extends CI_Controller
             'sentences_neutral' => get_sentences($report, 'neutral'),
             'sentences_negative' => get_sentences($report, 'negative'),
             'pieChart' => $this->createTypePieChart($report,'pieChart'),
-            'strictPieChart' => $this->createTypePieChart($report,'strictPieChart')
+            'strictPieChart' => $this->createTypePieChart($report,'strictPieChart', true)
 
         );
 
