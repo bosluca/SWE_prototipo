@@ -1,6 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
-
+<div class="row">
+	<div class="col-sm-12">
+		<?php echo $plain_text; ?>
+	</div>
+</div>
 <div class="row">
 	<?php if(count($sentences_positive['sentences']) > 0) : ?>
 		<div class="col-sm col-md">
