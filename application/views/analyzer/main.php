@@ -22,5 +22,5 @@
 </div>
 <div class="row">
     <p class="h3">Grafio dei tipi:</p>
-    <?php echo $this->load->view('charts', $pieChart, TRUE); ?>
+    <?php echo $this->load->view('charts/pieChart.php', $pieChart, TRUE); ?>
 </div>
