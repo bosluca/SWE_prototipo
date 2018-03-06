@@ -2,9 +2,11 @@
 
 <div class="row">
 	<div class="col-sm-12">
+		<p class="h3">Testo analizzato:</p>
 		<?php echo $plain_text; ?>
 	</div>
 </div>
+<div class="mt-1"></div>
 <div class="row">
 	<?php if(count($sentences_positive['sentences']) > 0) : ?>
 		<div class="col-sm col-md">
