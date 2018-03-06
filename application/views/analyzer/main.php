@@ -30,5 +30,9 @@
     <?php echo $this->load->view('charts/pieChart.php', $strictPieChart, TRUE); ?>
 </div>
 
+<div class="row">
+    <p class="h3">Andamento del discorso:</p>
+    <?php echo $this->load->view('charts/thresholdChart.php', $speechThreshold, TRUE); ?>
+</div>
 
 

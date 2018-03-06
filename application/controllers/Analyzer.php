@@ -26,8 +26,9 @@ class Analyzer extends CI_Controller
             'sentences_positive' => get_sentences($report, 'positive'),
             'sentences_neutral' => get_sentences($report, 'neutral'),
             'sentences_negative' => get_sentences($report, 'negative'),
-            'pieChart' => $this->createTypePieChart($report,'pieChart'),
-            'strictPieChart' => $this->createTypePieChart($report,'strictPieChart', true)
+            'pieChart' => $this->createTypePieChart($report, 'pieChart'),
+            'strictPieChart' => $this->createTypePieChart($report, 'strictPieChart', true),
+            'speechThreshold' => $this->createSpeechGoing($report,'speechThreshold')
 
         );
 
@@ -38,7 +39,7 @@ class Analyzer extends CI_Controller
         $this->load->view('template', $data);
     }
 
-    function createTypePieChart($report, $class, $useStrict=false)
+    function createTypePieChart($report, $class, $useStrict = false)
     {
 
         if (isset($report['sentences'])) {
@@ -48,7 +49,7 @@ class Analyzer extends CI_Controller
 
             foreach ($report['sentences'] as $sentence) {
 
-                if($useStrict)
+                if ($useStrict)
                     $type = getSimpleType($sentence['sentiment']['score']);
                 else
                     $type = getStrictType($sentence['sentiment']['score'], $sentence['sentiment']['magnitude']);
@@ -75,11 +76,30 @@ class Analyzer extends CI_Controller
                 }
             }
 
-            $series = implode(',',$series);
+            $series = implode(',', $series);
 
 
             return array(
                 'labels' => $labels,
+                'series' => $series,
+                'class' => $class
+            );
+        }
+    }
+
+    function createSpeechGoing($report, $class)
+    {
+        if (isset($report['sentences'])) {
+
+            $series = array();
+
+            foreach ($report['sentences'] as $sentence) {
+                array_push($series, $sentence['sentiment']['score']);
+            }
+
+            $series = implode(',', $series);
+
+            return array(
                 'series' => $series,
                 'class' => $class
             );
