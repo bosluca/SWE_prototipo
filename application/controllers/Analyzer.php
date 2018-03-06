@@ -43,7 +43,7 @@ class Analyzer extends CI_Controller
 
             $series = array(0, 0, 0);
             $labels = 'positive\', \'negative\', \'neutral';
-            
+
             foreach ($report['sentences'] as $sentence) {
 
                 switch (getSimpleType($sentence['sentiment']['score'])) {

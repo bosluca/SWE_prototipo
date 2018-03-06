@@ -22,7 +22,7 @@
 	        {
 	            foreach($theme_css as $css)
 	            {
-	                echo '<link href="' . site_url('assets/' . $css) . '?v=' . $this->config->item('site_version') .'" rel="stylesheet" />';
+	                echo '<link href="' . site_url('assets/css' . $css) . '?v=' . $this->config->item('site_version') .'" rel="stylesheet" />';
 	            }
 	        }
 	    ?>
