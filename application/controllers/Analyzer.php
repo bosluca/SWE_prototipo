@@ -26,7 +26,9 @@ class Analyzer extends CI_Controller
             'sentences_positive' => get_sentences($report, 'positive'),
             'sentences_neutral' => get_sentences($report, 'neutral'),
             'sentences_negative' => get_sentences($report, 'negative'),
-            'pieChart' => $this->createTypePieChart($report,'pieChart')
+            'pieChart' => $this->createTypePieChart($report,'pieChart'),
+            'strictPieChart' => $this->createTypePieChart($report,'strictPieChart')
+
         );
 
         $data['content'] = $this->load->view('analyzer/main', $content_data, TRUE);
@@ -36,17 +38,21 @@ class Analyzer extends CI_Controller
         $this->load->view('template', $data);
     }
 
-    function createTypePieChart($report, $class)
+    function createTypePieChart($report, $class, $useStrict=false)
     {
 
         if (isset($report['sentences'])) {
 
-            $series = array(0, 0, 0);
-            $labels = 'positive\', \'negative\', \'neutral';
+            $series = array(0, 0, 0, 0, 0, 0);
+            $labels = 'Positive\', \'Negative\', \'Neutrali\', \'Sicuramene Positive\', \'Sicuramente Negative\',\'Miste';
 
             foreach ($report['sentences'] as $sentence) {
 
-                switch (getSimpleType($sentence['sentiment']['score'])) {
+                if($useStrict)
+                    $type = getSimpleType($sentence['sentiment']['score']);
+                else
+                    $type = getStrictType($sentence['sentiment']['score'], $sentence['sentiment']['magnitude']);
+                switch ($type) {
                     case 'positive':
                         $series[0]++;
                         break;
@@ -56,6 +62,16 @@ class Analyzer extends CI_Controller
                     case 'neutral':
                         $series[2]++;
                         break;
+                    case 'clearly positive':
+                        $series[3]++;
+                        break;
+                    case 'clearly negative':
+                        $series[4]++;
+                        break;
+                    case 'mixed':
+                        $series[5]++;
+                        break;
+
                 }
             }
 
