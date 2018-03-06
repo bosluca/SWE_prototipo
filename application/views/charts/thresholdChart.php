@@ -1,3 +1,7 @@
+/**
+* @param string $class the css class to give at the chart
+* @param string $series a string with the series of data, divided by ,
+*/
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 echo '<div class="'. $class .'" align="center"></div>';
