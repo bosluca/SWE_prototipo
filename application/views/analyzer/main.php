@@ -32,9 +32,11 @@
 	    <p class="h3">Tipi individuati:</p>
 	    <?php echo $this->load->view('charts/barChart.php', $barChart, TRUE); ?>
 	</div>
+</div>
+<div class="row">
 	<div class="col-md">
 	    <p class="h3">Tipi individuati:</p>
-	    <?php echo $this->load->view('charts/pieChart.php', $barChart, TRUE); ?>
+	    <?php echo $this->load->view('charts/pieChart.php', $pieChart, TRUE); ?>
 	</div>
 </div>
 <div class="row">
