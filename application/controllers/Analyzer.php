@@ -21,7 +21,7 @@ class Analyzer extends CI_Controller
             'sentences_neutral'  => get_sentences($report, 'neutral'),
             'sentences_negative' => get_sentences($report, 'negative'),
             'barChart'           => $this->createTypeBarChart($report, 'barChart'),
-            'pieChar'            => $this->createTypeBarChart($report, 'pieChart'),
+            'pieChart'           => $this->createTypeBarChart($report, 'pieChart'),
             'strictBarChart'     => $this->createTypeBarChart($report, 'strictPieChart', true),
             'speechThreshold'    => $this->createSpeechGoing($report, 'speechThreshold')
         );
