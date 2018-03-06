@@ -40,9 +40,11 @@ class Analyzer extends CI_Controller
     {
 
         if (isset($report['sentences'])) {
+
+            $series = array(0, 0, 0);
+            $labels = 'positive\', \'negative\', \'neutral';
+            
             foreach ($report['sentences'] as $sentence) {
-                $series = array(0, 0, 0);
-                $labels = 'positive\', \'negative\', \'neutral';
 
                 switch (getSimpleType($sentence['sentiment']['score'])) {
                     case 'positive':
@@ -55,16 +57,16 @@ class Analyzer extends CI_Controller
                         $series[2]++;
                         break;
                 }
-
-                $series = implode(',',$series);
-
-
-                return array(
-                    'labels' => $labels,
-                    'series' => $series,
-                    'class' => $class
-                );
             }
+
+            $series = implode(',',$series);
+
+
+            return array(
+                'labels' => $labels,
+                'series' => $series,
+                'class' => $class
+            );
         }
     }
 
