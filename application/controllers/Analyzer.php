@@ -81,6 +81,64 @@ class Analyzer extends CI_Controller
             }
 
             $series = implode(',', $series);
+        }
+
+        return array(
+            'labels' => $labels,
+            'series' => $series,
+            'class'  => $class
+        );
+    }
+
+    /**
+     * @param array $report result (as array) from analyzeText
+     * @param string $class the css class to give at the chart
+     * @param bool $useStrict if true it will give a more accurate analyze. Default false.
+     * @return array create an array for thresholdChart view
+     */
+    function createTypeBarChart($report, $class, $useStrict = false)
+    {
+        if ($useStrict) {
+            $series = array(0, 0, 0, 0, 0, 0);
+            $labels = 'Positive\', \'Negative\', \'Neutrali\', \'Sicuramene Positive\', \'Sicuramente Negative\',\'Miste';
+        } else {
+            $series = array(0, 0, 0);
+            $labels = 'Positive\', \'Negative\', \'Neutrali';
+        }
+
+        if (isset($report['sentences'])) {
+
+            foreach ($report['sentences'] as $sentence) {
+
+                if ($useStrict)
+                    $type = getStrictType($sentence['sentiment']['score'], $sentence['sentiment']['magnitude']);
+                else
+                    $type = getSimpleType($sentence['sentiment']['score']);
+
+                switch ($type) {
+                    case 'positive':
+                        $series[0]++;
+                        break;
+                    case 'negative':
+                        $series[1]++;
+                        break;
+                    case 'neutral':
+                        $series[2]++;
+                        break;
+                    case 'clearly positive':
+                        $series[3]++;
+                        break;
+                    case 'clearly negative':
+                        $series[4]++;
+                        break;
+                    case 'mixed':
+                        $series[5]++;
+                        break;
+
+                }
+            }
+
+            $series = implode(',', $series);
 
         }
 
