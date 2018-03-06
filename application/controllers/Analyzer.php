@@ -44,15 +44,22 @@ class Analyzer extends CI_Controller
 
         if (isset($report['sentences'])) {
 
-            $series = array(0, 0, 0, 0, 0, 0);
-            $labels = 'Positive\', \'Negative\', \'Neutrali\', \'Sicuramene Positive\', \'Sicuramente Negative\',\'Miste';
+            if($useStrict){
+                $series = array(0, 0, 0, 0, 0, 0);
+                $labels = 'Positive\', \'Negative\', \'Neutrali\', \'Sicuramene Positive\', \'Sicuramente Negative\',\'Miste';
+            }
+            else{
+                $series = array(0, 0, 0);
+                $labels = 'Positive\', \'Negative\', \'Neutrali';
+            }
 
             foreach ($report['sentences'] as $sentence) {
 
                 if ($useStrict)
-                    $type = getSimpleType($sentence['sentiment']['score']);
-                else
                     $type = getStrictType($sentence['sentiment']['score'], $sentence['sentiment']['magnitude']);
+                else
+                    $type = getSimpleType($sentence['sentiment']['score']);
+
                 switch ($type) {
                     case 'positive':
                         $series[0]++;
