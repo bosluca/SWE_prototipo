@@ -12,7 +12,7 @@ class Analyzer extends CI_Controller
     function index()
     {
         /* DEBUG */
-        $string = ' Ieri è andato tutto bene . Oggi devo lavorare perché il cliente vuole nuove interfacce mi ci vorranno 8 ore non so come risolvere . Però il problema dell\'interfaccia web';
+        $string = ' Ieri è andato tutto bene . Oggi devo lavorare perché il cliente vuole nuove interfacce mi ci vorranno 8 ore non so come risolvere . Però il problema dell\'interfaccia web é rilevante. Mi piacrebbe avere piú tempo libero, sai faccio nuoto. E oggi ho trovato 50 euro per strada';
         $output = getcwd() . '/text/input.txt';
         file_put_contents($output, utf8_encode($string));
 
