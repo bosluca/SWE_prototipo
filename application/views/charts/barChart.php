@@ -2,5 +2,5 @@
 
 echo '<div class="'. $class .'" align="center"></div>';
 
-echo '<script>new Chartist.Bar(\'.' . $class . '\', {labels: [\'' .$labels .'\'],series: [['. $series .']}, {distributeSeries: true});</script>';
+echo '<script>new Chartist.Bar(\'.' . $class . '\', {labels: [\'' .$labels .'\'],series: ['. $series .']}, {distributeSeries: true});</script>';
 
