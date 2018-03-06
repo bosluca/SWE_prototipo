@@ -13,6 +13,9 @@ class Analyzer extends CI_Controller
     {
         $text   = file_get_contents(getcwd() . '/text/input.txt');
         $text   = utf8_decode($text);
+
+echo analyzeText($text); die();
+
         $report = json_decode(analyzeText($text), TRUE);
 
         $content_data = array(
