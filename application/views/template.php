@@ -16,6 +16,7 @@
     	<link rel="stylesheet" href="<?php echo site_url('assets/css/ionicons/ionicons.min.css'); ?>" />
     	<link rel="stylesheet" href="<?php echo site_url('assets/css/theme.css'); ?>" />
     	<link rel="stylesheet" href="<?php echo site_url('assets/css/loader.css'); ?>" />
+        <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
 	    <?php
 	        if(isset($theme_css))
 	        {
