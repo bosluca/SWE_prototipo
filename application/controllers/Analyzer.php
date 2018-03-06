@@ -11,29 +11,27 @@ class Analyzer extends CI_Controller
 
     function index()
     {
-        /* DEBUG */
-        $string = ' Ieri è andato tutto bene . Oggi devo lavorare perché il cliente vuole nuove interfacce mi ci vorranno 8 ore non so come risolvere . Però il problema dell\'interfaccia web é rilevante. Mi piacrebbe avere piú tempo libero, sai faccio nuoto. E oggi ho trovato 50 euro per strada. Oggi devo lavorare fino a tardi non riusciró a cucinare il pollo.';
-        $output = getcwd() . '/text/input.txt';
-        file_put_contents($output, utf8_encode($string));
+        $text   = file_get_contents(getcwd() . '/text/input.txt');
+        $text   = utf8_decode($text);
 
-        /* END DEBUG */
+echo analyzeText($text); die();
 
-        $text = file_get_contents(getcwd() . '/text/input.txt');
-        $text = utf8_decode($text);
         $report = json_decode(analyzeText($text), TRUE);
 
         $content_data = array(
+            'plain_text'         => $text,
             'sentences_positive' => get_sentences($report, 'positive'),
-            'sentences_neutral' => get_sentences($report, 'neutral'),
+            'sentences_neutral'  => get_sentences($report, 'neutral'),
             'sentences_negative' => get_sentences($report, 'negative'),
-            'barChart' => $this->createTypeBarChart($report, 'pieChart'),
-            'strictBarChart' => $this->createTypeBarChart($report, 'strictPieChart', true),
-            'speechThreshold' => $this->createSpeechGoing($report, 'speechThreshold')
+            'barChart'           => $this->createTypeBarChart($report, 'barChart'),
+            'pieChart'           => $this->createTypeBarChart($report, 'pieChart'),
+            'strictBarChart'     => $this->createTypeBarChart($report, 'strictPieChart', true),
+            'speechThreshold'    => $this->createSpeechGoing($report, 'speechThreshold')
         );
 
-        $data['content'] = $this->load->view('analyzer/main', $content_data, TRUE);
-        $data['theme_js'] = array('chartist/chartist.min.js');
-        $data['theme_css'] = array('chartist/chartist.min.css');
+        $data['content']      = $this->load->view('analyzer/main', $content_data, TRUE);
+        $data['theme_js_top'] = array('chartist/chartist.min.js','chartist/chartist-plugin-threshold.min.js');
+        $data['theme_css']    = array('chartist/chartist.min.css');
 
         $this->load->view('template', $data);
     }
@@ -46,7 +44,6 @@ class Analyzer extends CI_Controller
      */
     function createTypeBarChart($report, $class, $useStrict = false)
     {
-
         if ($useStrict) {
             $series = array(0, 0, 0, 0, 0, 0);
             $labels = 'Positive\', \'Negative\', \'Neutrali\', \'Sicuramene Positive\', \'Sicuramente Negative\',\'Miste';
@@ -88,13 +85,12 @@ class Analyzer extends CI_Controller
             }
 
             $series = implode(',', $series);
-
         }
 
         return array(
             'labels' => $labels,
             'series' => $series,
-            'class' => $class
+            'class'  => $class
         );
     }
 
