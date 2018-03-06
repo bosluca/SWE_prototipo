@@ -36,8 +36,10 @@
 </div>
 
 <div class="row">
+	<div class="col-sm-12">
     	<p class="h3">Andamento del discorso:</p>
     	<?php echo $this->load->view('charts/thresholdChart.php', $speechThreshold, TRUE); ?>
+    </div>
 </div>
 
 

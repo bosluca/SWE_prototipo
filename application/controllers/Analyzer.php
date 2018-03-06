@@ -26,7 +26,7 @@ class Analyzer extends CI_Controller
         );
 
         $data['content']      = $this->load->view('analyzer/main', $content_data, TRUE);
-        $data['theme_js_top'] = array('chartist/chartist.min.js','chartist-plugin-threshold.min.js');
+        $data['theme_js_top'] = array('chartist/chartist.min.js','chartist/chartist-plugin-threshold.min.js');
         $data['theme_css']    = array('chartist/chartist.min.css');
 
         $this->load->view('template', $data);
