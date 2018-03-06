@@ -26,7 +26,7 @@
 </div>
 
 <div class="row">
-    <p class="h3">Grafio dei tipi:</p>
+    <p class="h3">Grafio dei con maggiore dettaglio:</p>
     <?php echo $this->load->view('charts/pieChart.php', $strictPieChart, TRUE); ?>
 </div>
 
