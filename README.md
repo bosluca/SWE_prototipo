@@ -33,3 +33,21 @@ Per poter utilizzare il prototipo sul proprio server è necessario eseguire prim
 La pagina di registrazione permette di avviare una registrazione audio, effettuata tramite il componente **Media Recorder**.
 Il file audio prodotto verrà convertito da WAV al formato FLAC tramite il multimedia framework **ffmpeg**.
 È possibile avviare la registrazione tramite la pressione del pulsante **registra** e terminarla premendo sul pulsante **stop**. Una volta terminata la registrazione vengo visualizzate la data, l'ora e la durata. Qui è possibile salvare o scartare la traccia registrata.
+
+Una volta salvata la traccia viene convertita da *blob* a *WAV* e salvata in locale nel server, tramite poi *ffmpeg* viene convertita in *FLAC* e caricata su *Google Cloud Storage* con l'immediata eliminazione dal server locale delle tracce *WAV* e *FLAC*. Lo scarto della registrazione comporta l'eliminazione del *blob* in cache.
+
+## Conversione Audio-Testo
+
+Una volta archiviata la registrazione in *Google Cloud Storage*, una funzione PHP invoca il servizio *Google Cloud Speech* che converte la traccia audio, fornita in input, in testo salvato in un file txt con codifica UTF-8.
+
+## Analisi del Testo
+
+Una volta convertita la registrazione, una funzione dell'API *Google Natural Languge* si occupa di andare a leggere il file `input.txt` il testo generato dalla precedente conversione audio-testo.
+
+## Reportistica Grafica
+
+In questa pagina vengono riportati i dati risultanti dall'API *Google Natural Language* sottoforma di tabelle e grafici generati tramite la libreria *Chartist*.
+
+## Consigli per l'utilizzo
+
+Per visualizzare dei grafici sensati è consigliato fare delle piccole pause tra una frase e l'altra 
